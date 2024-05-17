@@ -4,16 +4,21 @@ interface People {
   profile_path: string,
   name: string,
   characters: string,
-  role:[],
+  role: [any],
   id: number
 }
 
 
-function People({ profile_path,
+function People({
+  profile_path,
   name,
   characters,
   role,
-  id }: People) {
+  id
+}: People) {
+
+
+
 
 
 
@@ -30,8 +35,8 @@ function People({ profile_path,
         <h2 className="font-bold p-2">{name}</h2>
         <div className="overflow-hidden line-clamp-3">
           {characters && <p className='font-thin  '>{characters}</p>}
-          {role?.map((role) =>
-            <p className='font-thin  ' key={role?.credit_id}>{role?.character}</p>
+          {role?.map((roles) =>
+            <p className='font-thin  ' key={roles?.credit_id}>{roles.character}</p>
           )}
         </div>
       </div>
