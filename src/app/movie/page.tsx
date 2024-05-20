@@ -49,7 +49,7 @@ function Page() {
     <div className='min-h-screen flex flex-wrap justify-center gap-4 text-white sm:mx-20 md:mx-28'>
       {tvShows?.map((shows) =>
 
-        <Link href={`/tv/${shows?.id}`} key={shows.id}>
+        <Link href={`/movie/${shows?.id}`} key={shows.id}>
         <Cards 
           id={shows?.id}
           name={shows?.name}
