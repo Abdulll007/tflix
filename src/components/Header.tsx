@@ -92,7 +92,7 @@ function Header({params}:any) {
           </Link></h1>
 
           <ul className='hidden sm:flex flex-col gap-6 items-center sm:flex-row  text-xl  '>
-              <li><Link href={"/movies"}>Movies</Link></li>
+              <li><Link href={"/movie"}>Movies</Link></li>
               <li><Link href={"/tv"}>Tv Shows</Link></li>
           </ul>
 
