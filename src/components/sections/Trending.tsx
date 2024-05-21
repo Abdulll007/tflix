@@ -21,15 +21,12 @@ function Trending({data,loading}:{data:any,loading:boolean}) {
     <div className="trending  mt-6 mx-5 text-white">
 
 
-      <div className=" flex gap-10 mb-5 items-center">
+      
           <h1 className="text-xl font-semibold " >Trending</h1>
-        <div className="border flex-col p-2 rounded-full flex gap-4 ">
-          <button className=''>Today</button>
-          <button >This Week</button>
-        </div>
+        
 
 
-      </div>
+ 
 
       <div className="overflow-scroll scroll- flex gap-6">
 
