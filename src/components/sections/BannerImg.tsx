@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { results } from '../banners'
 import Skeleton from 'react-loading-skeleton'
-import useFetchData from '@/helper/FetchHook'
-import LoadingSkeleton from '../LoadingSkeleton'
+
 
 
 

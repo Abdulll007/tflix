@@ -5,6 +5,8 @@ import LoadingSkeleton from '../LoadingSkeleton'
 import Link from 'next/link'
 
 function Upcoming() {
+
+
   const [data,loading] = useFetchData("https://api.themoviedb.org/3/movie/upcoming")
 
 
@@ -14,7 +16,10 @@ function Upcoming() {
 
     <div className="trending mt-6 mx-5 text-white">
     
+      
       <h1 className="text-xl font-semibold my-4">Upcoming</h1>
+
+      
       <div className="overflow-scroll flex gap-6">
 
       {loading && <LoadingSkeleton cards={20}/>}
