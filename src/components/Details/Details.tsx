@@ -4,6 +4,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import formatDuration from 'format-duration';
+import Link from 'next/link';
 
 
 function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boolean, data: any, setPlayer: (value: boolean) => void, player: boolean, mediaType:string}) {
@@ -12,6 +13,8 @@ function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boo
     const runtimeFormat = formatDuration((1000 * 60) * (data.runtime || data?.last_episode_to_air?.runtime));
 
     const votePercent = Math.ceil((data.vote_average * 100) / 10)
+
+    
 
     
     
@@ -94,7 +97,7 @@ function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boo
                                     {mediaType==="movie"&&
                                         <p className="">{data.release_date || data.first_air_date}</p>}
                                     <p className="">{runtimeFormat}</p>
-                                    <a href="" className="">Play Trailer</a>
+                                    <Link href="" className="">Play Trailer</Link>
                                 </div>
 
                                 <div className="flex gap-2 w-full justify-center flex-wrap ">

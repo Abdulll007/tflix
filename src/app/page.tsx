@@ -3,6 +3,7 @@
 
 import BannerImg from "@/components/sections/BannerImg";
 import MostPopular from "@/components/sections/MostPopular";
+import TopRated from "@/components/sections/TopRated";
 import Trending from "@/components/sections/Trending";
 import Upcoming from "@/components/sections/Upcoming";
 import useFetchData from "@/helper/FetchHook";
@@ -30,11 +31,10 @@ export default function Home() {
     <div className="mx-5 sm:mx-24 lg:mx-36 ">
 
       <Trending data={data} loading={loading}/>
-
-   
-      <MostPopular/>
-    
       <Upcoming/>
+      <MostPopular/>
+      <TopRated/>
+      
     </div>
      
     </main>
