@@ -28,7 +28,7 @@ function Trending({data,loading}:{data:any,loading:boolean}) {
 
  
 
-      <div className="overflow-scroll scroll- flex gap-6">
+      <div className="overflow-y-scroll no-scrollbar flex gap-6">
 
         {loading && <LoadingSkeleton cards={20} />}
 

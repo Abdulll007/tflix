@@ -20,7 +20,7 @@ function MostPopular() {
     <div className="popular mt-6 mx-5 text-white ">
     
       <h1 className="text-xl font-semibold my-4">Most Popular</h1>
-      <div className="overflow-scroll flex gap-6 ">
+      <div className="overflow-y-scroll no-scrollbar flex gap-6 ">
 
       {loading && <LoadingSkeleton cards={20}/>}
 

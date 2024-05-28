@@ -15,7 +15,7 @@ function Recommendation({ recommendations }: any) {
                 </h2>
             </div>
 
-            <div className="flex overflow-scroll w-full gap-4 h-[16rem] rounded-lg" >
+            <div className="flex overflow-y-scroll no-scrollbar w-full gap-4 h-[16rem] rounded-lg" >
 
                 {recommendations?.map((recommendation: any) => (
 

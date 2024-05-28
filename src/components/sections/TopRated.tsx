@@ -16,7 +16,7 @@ function TopRated() {
       <h1 className="text-xl font-semibold my-4">Top Rated</h1>
 
       
-      <div className="overflow-scroll flex gap-6">
+      <div className=" overflow-y-scroll no-scrollbar flex gap-6">
 
       {loading && <LoadingSkeleton cards={20}/>}
 

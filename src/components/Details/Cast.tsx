@@ -13,7 +13,7 @@ function Cast({loading,casts}:{loading:boolean,casts:any}) {
               </h2>
             </div>
 
-            <div className="flex overflow-scroll w-full gap-4 h-[24rem] rounded-lg" >
+            <div className="flex overflow-y-scroll no-scrollbar w-full gap-4 h-[24rem] rounded-lg" >
               {loading ? <LoadingSkeleton cards={20} /> :
 
                 casts?.map((cast: any) => (
