@@ -6,58 +6,68 @@ import { IoSearch, IoMenu, IoCloseSharp } from "react-icons/io5";
 import { options } from '@/helper/apiConfig';
 import { searchresults } from './banners';
 
-function Header({params}:any) {
+function Header({ params }: any) {
 
   const [toggleSearch, setToggleSearch] = useState(false)
   const [toggleMenu, setToggleMenu] = useState(false)
 
-  const [searchResult,setSearchResult] = useState("")
+  const [searchResult, setSearchResult] = useState("")
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const [data,setData] = useState<any[]>([])
+  const [data, setData] = useState<any[]>([])
 
-  const fetchingData = async()=>{
-  
+  const fetchingData = async () => {
+
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_SEARCH}${searchResult}&include_adult=false&language=en-US`,options)
-  
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_SEARCH}${searchResult}&include_adult=false&language=en-US`, options)
+
       setData(response.data.results)
     } catch (error) {
-      
+
     }
-    
+
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const searchRequest = setTimeout(() => {
-      if(searchResult.length>0){
+      if (searchResult.length > 0) {
         fetchingData()
       }
-        
+
     }, 1000);
 
-    return ()=>clearTimeout(searchRequest)
+    return () => clearTimeout(searchRequest)
 
-  },[searchResult])
+  }, [searchResult])
 
 
-  const handleChange = (event:any)=>{
+  useEffect(() => {
+    if (toggleSearch && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [toggleSearch]);
+
+
+  const handleChange = (event: any) => {
 
     setSearchResult(event?.target.value)
 
-    
+
   }
 
 
-  const linkHandler = ()=>{
+  const linkHandler = () => {
     setSearchResult("")
     setToggleSearch(false)
   }
 
 
+  
 
-  const inputFocus = inputRef?.current
+  
+
+  
 
 
   return (
@@ -68,7 +78,7 @@ function Header({params}:any) {
         <div className="sm:hidden">
           {toggleMenu ?
             <IoCloseSharp
-            size={25}
+              size={25}
               onClick={() => setToggleMenu(!toggleMenu)}
 
             />
@@ -76,11 +86,11 @@ function Header({params}:any) {
             <IoMenu
               size={25}
               onClick={() => setToggleMenu(!toggleMenu)}
-            /> 
+            />
 
           }
 
-          { toggleMenu && <div className="absolute  left-0 top-14
+          {toggleMenu && <div className="absolute  left-0 top-14
           py-4 px-6 w-2/5 bg-[#222831] h-screen ">
             <ul className='flex flex-col gap-4 items-center sm:flex-row  text-xl  '>
               <li><Link href={"/movie"} onClick={() => setToggleMenu(!toggleMenu)} >Movies</Link></li>
@@ -89,14 +99,14 @@ function Header({params}:any) {
           </div>}
         </div>
         <h1 className="text-3xl"><Link href={"/"}>TFLIX
-          </Link></h1>
+        </Link></h1>
 
-          <ul className='hidden sm:flex flex-col gap-6 items-center sm:flex-row  text-xl  '>
-              <li><Link href={"/movie"}>Movies</Link></li>
-              <li><Link href={"/tv"}>Tv Shows</Link></li>
-          </ul>
+        <ul className='hidden sm:flex flex-col gap-6 items-center sm:flex-row  text-xl  '>
+          <li><Link href={"/movie"}>Movies</Link></li>
+          <li><Link href={"/tv"}>Tv Shows</Link></li>
+        </ul>
 
-        
+
 
       </div>
 
@@ -110,47 +120,43 @@ function Header({params}:any) {
             value={searchResult}
             onChange={handleChange}
             placeholder='Search Movie, Tv show'
-    
+            autoFocus={true}
             type="text " />
 
 
           <div className="  ">
 
-            <IoSearch onClick={() => {
-              
-              
-              setToggleSearch(!toggleSearch)
-            }} size={20} color='white' />
+            <IoSearch onClick={()=>setToggleSearch(!toggleSearch)} size={20} color='white' />
           </div>
         </div>
 
-      
-        {searchResult.length>0 && 
-        <div className={`absolute top-14 rounded-md  left-14 bg-[#222831]  w-3/4 sm:w-2/3  ${toggleSearch ? "block" : "hidden"}  lg:w-1/4  sm:left-[25%] lg:left-[65%] max-h-96 overflow-scroll p-2 sm:p-6`}>
-           
-           {
-            data.map((result)=>(
-            
-           <Link onClick={linkHandler} key={result.id} href={`${params==="tv" || params==="movie"? result.id : `/${result.media_type}/${result.id}`} `} className="flex  items-center  text-white my-2">
-            
-            <div className="">
-              <img 
-              className='w-32'
-              src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${result.poster_path}`} alt="" />
-            </div>
 
-            <div className="text-center w-full">
-            <h3 className='text-center font-bold '>{result.title || result.name}</h3>
-            <p className=' text-center'>{result.release_date ||  result.first_air_date}</p>
-            </div>
+        {searchResult.length > 0 &&
+          <div className={`absolute top-14 rounded-md  left-14 bg-[#222831]  w-3/4 sm:w-2/3  ${toggleSearch ? "block" : "hidden"}  lg:w-1/4  sm:left-[25%] lg:left-[65%] max-h-96 overflow-scroll p-2 sm:p-6`}>
 
-           </Link>
+            {
+              data.map((result) => (
 
-          ))
-          }
+                <Link onClick={linkHandler} key={result.id} href={`${params === "tv" || params === "movie" ? result.id : `/${result.media_type}/${result.id}`} `} className="flex  items-center  text-white my-2">
 
-          
-        </div>}
+                  <div className="">
+                    <img
+                      className='w-32'
+                      src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${result.poster_path}`} alt="" />
+                  </div>
+
+                  <div className="text-center w-full">
+                    <h3 className='text-center font-bold '>{result.title || result.name}</h3>
+                    <p className=' text-center'>{result.release_date || result.first_air_date}</p>
+                  </div>
+
+                </Link>
+
+              ))
+            }
+
+
+          </div>}
       </div>
 
 
