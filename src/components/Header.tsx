@@ -137,12 +137,12 @@ function Header({ params }: any) {
             {
               data.map((result) => (
 
-                <Link onClick={linkHandler} key={result.id} href={`${params === "tv" || params === "movie" ? result.id : `/${result.media_type}/${result.id}`} `} className="flex  items-center  text-white my-2">
+                <Link onClick={linkHandler} key={result.id} href={`${result.media_type === "person" ? `/profile/${result.id}`:`/${result.media_type}/${result.id}`}`} className="flex  items-center  text-white my-2">
 
                   <div className="">
                     <img
                       className='w-32'
-                      src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${result.poster_path}`} alt="" />
+                      src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${result.poster_path || result.profile_path}`} alt="" />
                   </div>
 
                   <div className="text-center w-full">

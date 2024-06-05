@@ -68,7 +68,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
     <div className=' w-full  text-white  p-4 rounded-lg ' >
 
 
-      <div className="p-2 mb-2  text-black flex gap-3">
+      <div className="p-2 mb-2   flex gap-3">
         <h2 className="sm:text-3xl  p-2 text-white ">
           Episodes
         </h2>
@@ -76,7 +76,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
         <select
           name="season"
           id="season"
-          className=' outline-none rounded-md sm:text-xl p-0'
+          className=' outline-none bg-transparent rounded-md sm:text-xl p-0'
           onChange={(e) => { changeSeason(e) }}
         >
 
@@ -91,7 +91,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
               key={season.season_number}
             >
 
-            Season {season.season_number} {season.name} 
+            {!season.name.includes(`Season ${season.season_number}`)&& `Season ${season.season_number}` } {season.name} 
 
             </option>
           )).reverse()}
