@@ -17,7 +17,7 @@ function Cast({loading,casts}:{loading:boolean,casts:any}) {
               {loading ? <LoadingSkeleton cards={20} /> :
 
                 casts?.map((cast: any) => (
-                  <Link href={""} key={cast.id}>
+                  <Link href={`/profile/${cast.id}`} key={cast.id}>
                     <People
                       profile_path={cast.profile_path}
                       id={cast.id}
