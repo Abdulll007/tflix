@@ -59,7 +59,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
 
 
   
-
+  
 
 
 
@@ -127,7 +127,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
               <div className="h-full w-full ">
                 <img
                   className=' h-auto rounded-lg'
-                  src={process.env.NEXT_PUBLIC_IMAGE_URI + episode.still_path}
+                  src={`${episode.still_path ? process.env.NEXT_PUBLIC_IMAGE_URI + episode.still_path : "/poster.png" }`}
                   alt="" />
 
               </div>

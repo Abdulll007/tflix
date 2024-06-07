@@ -28,7 +28,7 @@ function People({
       <div className=" w-full">
 
         <img
-          src={`${profile_path ? process.env.NEXT_PUBLIC_IMAGE_URI + "/" + profile_path : "/noprofile.svg"}`} alt="/noprofile.svg" className='max-w-full h-auto rounded-t-md object-fit ' />
+          src={`${profile_path ? process.env.NEXT_PUBLIC_IMAGE_URI + "/" + profile_path : "/noprofile.svg"}`} alt="/noprofile.svg" className='max-w-full h-auto rounded-md object-fit ' />
       </div>
 
       <div className=" text-center  pt-2 ">

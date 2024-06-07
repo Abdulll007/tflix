@@ -17,7 +17,7 @@ export default function Home() {
   const [data, loading, error] = useFetchData("https://api.themoviedb.org/3/trending/all/day")
 
 
-
+  
 
 
   return (

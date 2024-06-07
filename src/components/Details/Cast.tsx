@@ -5,7 +5,8 @@ import LoadingSkeleton from '../LoadingSkeleton'
 
 function Cast({loading,casts}:{loading:boolean,casts:any}) {
 
-  return (
+  
+  return  casts?.length > 0 && (
     <div className="w-full mt-2">
             <div className="text-white">
               <h2 className='text-xl font-bold mb-2'>
