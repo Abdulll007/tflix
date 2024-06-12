@@ -46,7 +46,7 @@ function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boo
 
                                 <div className="w-10 sm:w-14 ">
                                     <CircularProgressbar
-                                        text={`${votePercent}%`} value={70}
+                                        text={`${votePercent}%`} value={votePercent}
                                         minValue={0}
                                         maxValue={100}
                                         styles={buildStyles(
@@ -66,20 +66,30 @@ function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boo
                             </div>
 
 
-                            {mediaType==="tv" && <div className="w-full flex flex-col gap-1">
+                            {mediaType==="tv" && <div className="w-full grid justify-center gap-1">
 
-                                <div className="flex  justify-around ">
-                                    <p className='font-bold text-start'>First Air Date</p>
+                                <div className="grid grid-cols-2 gap-10">
+                                    <p className='font-bold'>First Air Date</p>
                                     <p className="">{data.first_air_date}</p>
                                 </div>
 
-                                <div className="flex     justify-around">
+                                <div className="grid grid-cols-2 gap-10">
+                                    <p className='font-bold '>Total Seasons</p>
+                                    <p className="">{data.number_of_seasons}</p>
+
+                                </div>
+                                <div className="grid grid-cols-2 gap-10">
+                                    <p className='font-bold'>Total Episodes</p>
+                                    <p className="">{data.number_of_episodes}</p>
+
+                                </div>
+                                <div className="grid grid-cols-2 gap-10">
                                     <p className='font-bold'>Air Status</p>
                                     <p className="">{data.status}</p>
 
                                 </div>
 
-                                <div className="flex     justify-around">
+                                <div className="grid grid-cols-2 gap-10">
                                     <p className='font-bold'>Last Air Date</p>
                                     <p className="">{data.last_air_date}</p>
 
