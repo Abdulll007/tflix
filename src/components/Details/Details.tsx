@@ -10,12 +10,12 @@ import Link from 'next/link';
 function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boolean, data: any, setPlayer: (value: boolean) => void, player: boolean, mediaType:string}) {
 
 
-    const runtimeFormat = formatDuration((1000 * 60) * (data.runtime || data?.last_episode_to_air?.runtime));
+    const runtimeFormat = formatDuration((1000 * 60) * (data.runtime || data?.last_episode_to_air?.runtime|| data?.episode_run_time));
 
     const votePercent = Math.ceil((data.vote_average * 100) / 10)
 
     
-
+    
     
     
     return (
