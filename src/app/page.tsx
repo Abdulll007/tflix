@@ -28,7 +28,7 @@ export default function Home() {
       <BannerImg data={data} loading={loading}/>
     
 
-    <div className="mx-5 sm:mx-24 lg:mx-36 ">
+    <div className="mx-2 sm:mx-20 lg:mx-32 ">
 
       <Trending data={data} loading={loading}/>
       <Upcoming/>
