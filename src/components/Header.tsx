@@ -59,6 +59,7 @@ function Header({ params }: any) {
 
   const linkHandler = () => {
     setSearchResult("")
+    setData([])
     setToggleSearch(false)
   }
 
@@ -132,12 +133,12 @@ function Header({ params }: any) {
 
 
         {searchResult.length > 0 &&
-          <div className={`absolute top-14 rounded-md  left-14 bg-[#222831]  w-3/4 sm:w-2/3  ${toggleSearch ? "block" : "hidden"}  lg:w-1/4  sm:left-[25%] lg:left-[65%] max-h-96 overflow-scroll p-2 sm:p-6`}>
+          <div className={`absolute top-14 rounded-md  left-14 bg-[#222831]  w-3/4 sm:w-2/3  ${toggleSearch ? "block" : "hidden"}  lg:w-1/4  sm:left-[25%] lg:left-[65%]  max-h-96 overflow-scroll `}>
 
             {
               data.map((result) => (
 
-                <Link onClick={linkHandler} key={result.id} href={`${result.media_type === "person" ? `/profile/${result.id}`:`/${result.media_type}/${result.id}`}`} className="flex  items-center  text-white my-2">
+                <Link onClick={linkHandler} key={result.id} href={`${result.media_type === "person" ? `/profile/${result.id}`:`/${result.media_type}/${result.id}`}`} className="flex  items-center  text-white my-2 m-2 sm:m-6">
 
                   <div className="">
                     <img
