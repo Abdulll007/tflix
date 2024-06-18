@@ -8,7 +8,7 @@ function Player({ handlePlayer, id,season,episode,media_type,name}:{handlePlayer
     
     useEffect(()=>{
         
-        window.scrollTo({top:0, behavior: "smooth" })
+        window.scrollTo({top:-10, behavior: "smooth" })
         document.body.style.overflow = "hidden"
 
     },[])
@@ -35,7 +35,7 @@ function Player({ handlePlayer, id,season,episode,media_type,name}:{handlePlayer
 
     return (
     <div 
-    className='w-full h-full  absolute top-0 flex flex-col items-center justify-start text-white  backdrop-filter backdrop-blur-md backdrop-brightness-50 '
+    className='w-full h-full  absolute top-0 flex flex-col items-center justify-start text-white  playerblur p-1  '
     >
 
         <div className=" w-full  p-7"> 
@@ -57,7 +57,7 @@ function Player({ handlePlayer, id,season,episode,media_type,name}:{handlePlayer
 
         
 
-        <iframe src={videoType} style={{width: "100%", height: "100%"}} referrerPolicy="origin" allowFullScreen></iframe>
+        <iframe src={videoType} style={{width: "100%", height: "100%"}} referrerPolicy="origin" allowFullScreen className='rounded'></iframe>
         
         
         </div>

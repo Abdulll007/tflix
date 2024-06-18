@@ -9,13 +9,27 @@ body {
 
 
 @layer utilities {
+
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
-   /* Hide scrollbar for IE, Edge and Firefox */
+
+    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-  }
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .playerblur {
+        backdrop-filter: blur(10px) contrast(60%) brightness(.5);
+        
+        -webkit-backdrop-filter: blur(10px) contrast(60%);
+        /* width: contain; */
+        
+        
+        /* padding: 0.3rem; */
+    }
 }
