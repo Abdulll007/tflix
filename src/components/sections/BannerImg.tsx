@@ -1,63 +1,117 @@
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { IoPlaySharp } from "react-icons/io5";
+import { tvGenres, movieGenres } from '../genres';
 
 
 
 
+function BannerImg({ data, loading }: { data: any, loading: boolean }) {
 
 
-function BannerImg({data,loading}:{data:any,loading:boolean}) {
+
+  const [bannerData, setBannerData] = useState<any>()
+  const [title, setTitle] = useState("")
 
 
-  
-  const[bannerImg,setBannerImg] = useState("")
-  const[title,setTitle] = useState("")
+  useEffect(() => {
 
-  
-  useEffect(()=>{
+    const randomnumber = Math.floor(Math.random() * 19)
 
-    const randomnumber = Math.floor(Math.random()*19)
+    setBannerData(data[randomnumber])
+    // setTitle(data[randomnumber]?.title || data[randomnumber]?.name)
 
-    setBannerImg(data[randomnumber]?.backdrop_path)
-    setTitle(data[randomnumber]?.title || data[randomnumber]?.name)
+  }, [data])
 
-  },[data])
+  console.log(bannerData)
 
 
   return (
 
-    
-
-    <div className="banner w-full h-80 sm:min-h-96 lg:h-[36rem]  relative">
-
-        
-      
-         { loading ? <Skeleton width={"100%"} height={"100%"} duration={1} direction='ltr' baseColor="#222830"/>
-          : 
-          <>
-          <img
-          className=" object-center h-80 sm:h-full w-full opacity-55 relative"
-          src={`https://image.tmdb.org/t/p/original${bannerImg}`} 
-          alt="img" 
-          />
 
 
-          <div className="absolute bottom-0  w-full h-20 sm:h-32  flex justify-center items-center">
-          <h1 className='  text-2xl sm:text-3xl lg:text-5xl font-bold text-white '>{title}</h1>
+    <div className="banner w-full h-[40rem] sm:h-[50rem] relative md:h-[50rem]">
+
+
+
+      {loading ? <Skeleton width={"100%"} height={"100%"} duration={1} direction='ltr' baseColor="#222830" />
+        :
+        <>
+          <div className="md:block hidden h-full">
+
+            <img
+              className=" object-cover  sm:h-full w-full opacity-55 relative  "
+              src={`https://image.tmdb.org/t/p/original${bannerData?.backdrop_path}`}
+              alt="img"
+            />
+
+
+            <div className="absolute bottom-14 px-9 w-full h-20 sm:h-32  md:flex flex-col justify-center items-center text-white hidden ">
+              <h1 className=' font-[sans-serif] text-2xl sm:text-3xl lg:text-5xl font-bold  '>{bannerData?.title || bannerData?.name}</h1>
+              <p className='text-center'> {bannerData?.overview}</p>
+
+              <Link
+                href={`/${bannerData?.media_type}/${bannerData?.id}`}
+                className='flex items-center gap-2 mt-4 border py-4 px-8 rounded-full text-xl hover:bg-blue-600'
+              >
+                <IoPlaySharp />
+                <span>
+                  Play</span></Link>
+            </div>
           </div>
 
-          </>
-          
-        }
-        
 
-        <div className=" absolute left-10 top-28 lg:top-60 text-white">
+          <div className="h-full md:hidden">
+            <img
+              className=" object-cover w-full h-full opacity-55 relative  "
+              src={`https://image.tmdb.org/t/p/original${bannerData?.poster_path}`}
+              alt="img"
+            />
+
+
+            <div className="text-white absolute bottom-10  flex flex-col justify-center items-center w-full gap-4">
+              <h1 className='text-3xl font-bold font-sans'>{bannerData?.name || bannerData?.title}</h1>
+
+              <div className="flex gap-3">
+
+                {bannerData?.media_type === "tv" && bannerData?.genre_ids?.map((genres: number) => (
+                  <p className="" key={genres}>
+                    {tvGenres.map((genre) => {
+                      return genres === genre.id && genre.name
+                    })}
+                  </p>
+                ))}
+
+
+                {bannerData?.media_type === "movie" && bannerData?.genre_ids?.map((genres: number) => (
+                  <p className="font-semibold" key={genres}>
+                    {movieGenres.map((genre) => {
+                      return genres === genre.id && genre.name
+                    })}
+                  </p>
+                ))}
+              </div>
+              <Link href={`/${bannerData?.media_type}/${bannerData?.id}`} className='flex items-center justify-center text-2xl  w-3/5 py-3 gap-2 bg-blue-600 rounded-xl' > <IoPlaySharp/>Watch Now </Link>
+            </div>
+
+          </div>
+
+          
+
+
+        </>
+
+      }
+
+
+      {/* <div className=" absolute left-10 top-28 lg:top-60 text-white">
           <h1 className=" text-2xl sm:text-3xl font-bold">Welcome To TFLIX.</h1>
           <p className="text-sm sm:text-xl my-2">Millions of movies and TV shows to explore.</p>
-        </div>
+        </div> */}
 
 
-      </div>
+    </div>
   )
 }
 

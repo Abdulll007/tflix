@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react'
 import { IoSearch, IoMenu, IoCloseSharp } from "react-icons/io5";
 import { options } from '@/helper/apiConfig';
-import { searchresults } from './banners';
+import { searchresults } from './genres';
 
 function Header({ params }: any) {
 
@@ -72,7 +72,7 @@ function Header({ params }: any) {
 
 
   return (
-    <header className='h-14 w-full bg-[#222831] sm:px- sticky top-0 z-10 flex justify-between items-center p-4 sm:px-24 lg:px-40  '>
+    <header className='h-14 w-full bg-[#1e1e1e] [#222831] sm:px- sticky top-0 z-10 flex justify-between items-center p-4 sm:px-24 lg:px-40 '>
 
 
       <div className="text-white flex gap-4 items-center ">
@@ -92,14 +92,14 @@ function Header({ params }: any) {
           }
 
           {toggleMenu && <div className="absolute  left-0 top-14
-          py-4 px-6 w-2/5 bg-[#222831] h-screen ">
+          py-4 px-6 w-2/5 bg-[#1e1e1e] h-screen ">
             <ul className='flex flex-col gap-4 items-center sm:flex-row  text-xl  '>
               <li><Link href={"/movie"} onClick={() => setToggleMenu(!toggleMenu)} >Movies</Link></li>
               <li><Link href={"/tv"} onClick={() => setToggleMenu(!toggleMenu)}>Tv Shows</Link></li>
             </ul>
           </div>}
         </div>
-        <h1 className="text-3xl"><Link href={"/"}>TFLIX
+        <h1 className="text-2xl sm:text-3xl"><Link href={"/"}>TFLIX
         </Link></h1>
 
         <ul className='hidden sm:flex flex-col gap-6 items-center sm:flex-row  text-xl  '>
@@ -113,19 +113,19 @@ function Header({ params }: any) {
 
 
       <div className="">
-        <div className=" flex justify-center items-center rounded-md ">
+        <div className=" flex justify-center items-center rounded-md  ">
 
           <input
-            className={`border-none outline-none sm:text-lg  w-full rounded-l-md  ${toggleSearch ? "block" : "hidden"} bg-transparent text-white`}
+            className={`border-none outline-none sm:text-lg sm:w-64   rounded-l-md  ${toggleSearch ? "block" : "hidden"} bg-transparent text-white`}
             ref={inputRef}
             value={searchResult}
             onChange={handleChange}
-            placeholder='Search Movie, Tv show'
+            placeholder='Search...'
             autoFocus={true}
             type="text " />
 
 
-          <div className="  ">
+          <div className=" place-items-end ">
 
             <IoSearch onClick={()=>setToggleSearch(!toggleSearch)} size={20} color='white' />
           </div>
@@ -133,7 +133,11 @@ function Header({ params }: any) {
 
 
         {searchResult.length > 0 &&
-          <div className={`absolute top-14 rounded-md  left-14 bg-[#222831]  w-3/4 sm:w-2/3  ${toggleSearch ? "block" : "hidden"}  lg:w-1/4  sm:left-[25%] lg:left-[65%]  max-h-96 overflow-scroll `}>
+          <div className={`absolute top-14 rounded-b-md  left-14 bg-[#1e1e1e]  w-3/4 sm:w-2/3  ${toggleSearch ? "block" : "hidden"}  lg:w-1/4  sm:left-[25%] lg:left-[65%]  max-h-96 overflow-scroll `}>
+
+            <div className="text-white text-center text-xl font-semibold">
+              <h1 className=''>Search Results</h1>
+            </div>
 
             {
               data.map((result) => (

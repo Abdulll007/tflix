@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 function Profile({ params }: any) {
 
-    const [data] = useFetchData(`https://api.themoviedb.org/3/person/${params.id}?append_to_response=movie_credits%2Ctv_credits`)
+    const [data] = useFetchData(`https://api.themoviedb.org/3/person/${params.id}?append_to_response=movie_credits,tv_credits`)
 
 
     const moviecast = data?.movie_credits?.cast
@@ -30,11 +30,11 @@ function Profile({ params }: any) {
     let text = data.biography
 
 
-    
+    console.log(data)
 
     return (
-        <div className="min-h-screen m-6  grid sm:grid-flow-col  text-white sm:mx-32 gap-6">
-            <div className="">
+        <div className="min-h-screen m-6  grid sm:grid-flow-col text-white sm:mx-32 gap-6">
+            <div className=" sm:col-span-1">
                 <div className="flex flex-col items-center sm:flex-row  ">
 
                     <div className=" mb-4 ">
@@ -71,7 +71,7 @@ function Profile({ params }: any) {
                 </div>
 
             </div>
-            <div className=" ">
+            <div className=" sm:col-span-5">
 
                 <h2 className="text-4xl hidden sm:block mb-8
                     ">{data.name}</h2>
