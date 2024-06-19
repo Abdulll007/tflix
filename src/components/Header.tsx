@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react'
 import { IoSearch, IoMenu, IoCloseSharp } from "react-icons/io5";
 import { options } from '@/helper/apiConfig';
-import { searchresults } from './genres';
+
 
 function Header({ params }: any) {
 
