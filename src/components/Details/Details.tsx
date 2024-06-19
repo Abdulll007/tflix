@@ -128,7 +128,7 @@ function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boo
                     {
                         
                             mediaType === "movie" &&
-                            <button onClick={() => { setPlayer(!player) }} className='bg-[#76ABAE] w-full p-4 text-center font-bold rounded-md text-[#222731]'>Play Now</button>
+                            <button onClick={() => { setPlayer(!player) }} className='bg-blue-500 w-full p-4 text-center font-bold rounded-md text-white'>Play Now</button>
                     }
                 </div>
 

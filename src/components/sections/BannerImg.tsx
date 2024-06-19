@@ -92,7 +92,7 @@ function BannerImg({ data, loading }: { data: any, loading: boolean }) {
                   </p>
                 ))}
               </div>
-              <Link href={`/${bannerData?.media_type}/${bannerData?.id}`} className='flex items-center justify-center text-2xl  w-3/5 py-3 gap-2 bg-blue-600 rounded-xl' > <IoPlaySharp/>Watch Now </Link>
+              <Link href={`/${bannerData?.media_type}/${bannerData?.id}`} className='flex items-center justify-center text-2xl border w-3/5 py-3 gap-2 hover:bg-blue-600  rounded-xl' > <IoPlaySharp/>Watch Now </Link>
             </div>
 
           </div>
