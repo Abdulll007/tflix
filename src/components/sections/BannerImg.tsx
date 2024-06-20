@@ -24,7 +24,7 @@ function BannerImg({ data, loading }: { data: any, loading: boolean }) {
 
   }, [data])
 
-  console.log(bannerData)
+
 
 
   return (
