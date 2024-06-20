@@ -20,7 +20,7 @@ function BannerImg({ data, loading }: { data: any, loading: boolean }) {
     const randomnumber = Math.floor(Math.random() * 19)
 
     setBannerData(data[randomnumber])
-    // setTitle(data[randomnumber]?.title || data[randomnumber]?.name)
+    
 
   }, [data])
 
@@ -105,10 +105,7 @@ function BannerImg({ data, loading }: { data: any, loading: boolean }) {
       }
 
 
-      {/* <div className=" absolute left-10 top-28 lg:top-60 text-white">
-          <h1 className=" text-2xl sm:text-3xl font-bold">Welcome To TFLIX.</h1>
-          <p className="text-sm sm:text-xl my-2">Millions of movies and TV shows to explore.</p>
-        </div> */}
+      
 
 
     </div>

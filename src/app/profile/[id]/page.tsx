@@ -30,7 +30,6 @@ function Profile({ params }: any) {
     let text = data.biography
 
 
-    console.log(data)
 
     return (
         <div className="min-h-screen m-6  grid sm:grid-flow-col text-white sm:mx-32 gap-6">

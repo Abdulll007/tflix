@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -25,7 +25,7 @@ function Player({ handlePlayer, id,season,episode,media_type,name}:{handlePlayer
        
     }
 
-
+    
     
     
     const videoType = checkMediaType(media_type)
@@ -35,10 +35,10 @@ function Player({ handlePlayer, id,season,episode,media_type,name}:{handlePlayer
 
     return (
     <div 
-    className='w-full h-full  absolute top-0 flex flex-col items-center justify-start text-white  playerblur p-1  '
+    className='w-full h-full  absolute top-0 flex flex-col items-center  text-white  playerblur p-1  '
     >
 
-        <div className=" w-full  p-7"> 
+        <div className=" w-full  p-4"> 
             <button onClick={()=>{
 
                     handlePlayer()
@@ -53,12 +53,22 @@ function Player({ handlePlayer, id,season,episode,media_type,name}:{handlePlayer
             <p className="text-bold text-2xl">
                 {name} 
             </p>
-        <div className=" w-full h-60 sm:h-[40rem] sm:w-4/5 object-cover">
+        <div className=" w-full h-60 sm:h-[40rem] sm:w-4/5 object-cover relative  flex flex-col justify-center items-center "
 
         
+        >
 
-        <iframe src={videoType} style={{width: "100%", height: "100%"}} referrerPolicy="origin" allowFullScreen className='rounded'></iframe>
+
         
+        
+        <iframe src={videoType} style={{width: "100%", height: "100%" }} referrerPolicy="origin" allowFullScreen className='rounded ' 
+        
+        >
+
+            
+        </iframe>
+
+        <button  className={`absolute -bottom-12 w-full sm:w-80  p-2 bg-slate-100 text-blue-700 hover:bg-blue-700 hover:text-white rounded-md text-sm sm:text-md `}>server 2</button>
         
         </div>
 
