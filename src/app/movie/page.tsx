@@ -1,5 +1,6 @@
 "use client"
 import Cards from '@/components/Cards'
+import DocumentTitle from '@/components/DocumentTitile'
 import useFetchData from '@/helper/FetchHook'
 import { options } from '@/helper/apiConfig'
 import axios from 'axios'
@@ -57,6 +58,9 @@ function Page() {
     }
   }
 
+
+  DocumentTitle("TFLIX - Movies")
+  
   return (
 
     <div className="flex flex-col items-center">

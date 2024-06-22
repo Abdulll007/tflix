@@ -5,14 +5,17 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import formatDuration from 'format-duration';
 import Link from 'next/link';
+import { IoPlaySharp} from "react-icons/io5";
 
 
-function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boolean, data: any, setPlayer: (value: boolean) => void, player: boolean, mediaType:string}) {
+function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { loading: boolean, data: any, setPlayer: (value: boolean) => void, player: boolean, mediaType:string,setTrailer:(value:boolean)=>void}) {
 
 
     const runtimeFormat = formatDuration((1000 * 60) * (data.runtime || data?.last_episode_to_air?.runtime|| data?.episode_run_time));
 
     const votePercent = Math.ceil((data.vote_average * 100) / 10)
+
+    
 
     
     
@@ -107,7 +110,13 @@ function Details({ loading, data, setPlayer, player ,mediaType }: { loading: boo
                                     {mediaType==="movie"&&
                                         <p className="">{data.release_date || data.first_air_date}</p>}
                                     <p className="">{runtimeFormat}</p>
-                                    <Link href="" className="">Play Trailer</Link>
+
+                                    <button className="flex justify-center items-center gap-1 hover:text-slate-300"
+                                    onClick={() => { 
+                                        setPlayer(!player)      
+                                        setTrailer(true)
+                                            
+                                    }}><IoPlaySharp/>Play Trailer</button>
                                 </div>
 
                                 <div className="flex gap-2 w-full justify-center flex-wrap ">

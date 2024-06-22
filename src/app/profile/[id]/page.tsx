@@ -1,4 +1,5 @@
 "use client"
+import DocumentTitle from '@/components/DocumentTitile'
 import useFetchData from '@/helper/FetchHook'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -29,7 +30,7 @@ function Profile({ params }: any) {
 
     let text = data.biography
 
-
+    DocumentTitle(data ? data?.name:"Loading...")
 
     return (
         <div className="min-h-screen m-6  grid sm:grid-flow-col text-white sm:mx-32 gap-6">

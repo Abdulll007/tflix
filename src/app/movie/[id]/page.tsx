@@ -1,37 +1,45 @@
 "use client"
 import Player from '@/components/Player';
 import useFetchData from '@/helper/FetchHook';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Poster from '@/components/Details/Poster';
 import Details from '@/components/Details/Details';
 import Overview from '@/components/Details/Overview';
 import Cast from '@/components/Details/Cast';
 import Recommendation from '@/components/sections/Recommendation';
+import DocumentTitle from '@/components/DocumentTitile';
 
 
 
 function page({ params }: any) {
 
   const [player, setPlayer] = useState(false)
-
-
-
-
-
-  const [data, loading] = useFetchData(` ${process.env.NEXT_PUBLIC_REQUEST_API}/movie/${params.id}?append_to_response=credits,recommendations`)
-
+  
+  const [trailer,setTrailer] = useState(false)
+  
+  
+  const [data, loading] = useFetchData(` ${process.env.NEXT_PUBLIC_REQUEST_API}/movie/${params.id}?append_to_response=credits,recommendations,videos`)
+  
   
 
+  const trailers = data?.videos?.results?.filter((trailer:any)=>{
+    return trailer?.type === "Trailer"
+  })
   
+  
+  console.log(data)
 
 
   const casts = data?.credits?.cast
 
 
 
+  DocumentTitle(data.title ? `${data?.title} (${data?.release_date?.substring(0,4)})`:"Loading...")
 
   return (
+
+    
     <main
       className="flex min-h-screen flex-col relative">
 
@@ -51,7 +59,9 @@ function page({ params }: any) {
           loading={loading} 
           setPlayer={setPlayer} 
           player={player} 
-          mediaType='movie'
+          mediaType={"movie"}
+        
+          setTrailer={setTrailer}
           />
 
 
@@ -75,7 +85,9 @@ function page({ params }: any) {
           <Player
             id={data?.id}
             handlePlayer={() => setPlayer(!player)}
-            media_type="movie"
+            mediaType={trailer?"trailer":"movie"}
+            setTrailer={setTrailer}
+            trailerKey={trailers[0]?.key}
             name={data?.title || data?.name}
           />}
 

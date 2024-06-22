@@ -4,6 +4,7 @@ import Details from '@/components/Details/Details'
 import Episodes from '@/components/Details/Episodes'
 import Overview from '@/components/Details/Overview'
 import Poster from '@/components/Details/Poster'
+import DocumentTitle from '@/components/DocumentTitile'
 import Player from '@/components/Player'
 import Recommendation from '@/components/sections/Recommendation'
 import useFetchData from '@/helper/FetchHook'
@@ -14,7 +15,7 @@ function page({ params }: any) {
 
   
 
-  const [data, loading] = useFetchData(` ${process.env.NEXT_PUBLIC_REQUEST_API}/tv/${params.serialId}?append_to_response=seasons,aggregate_credits,recommendations`)
+  const [data, loading] = useFetchData(` ${process.env.NEXT_PUBLIC_REQUEST_API}/tv/${params.serialId}?append_to_response=seasons,aggregate_credits,recommendations,videos`)
 
   const [playerValue, setPlayerValue] = useState({
     name: "",
@@ -23,6 +24,9 @@ function page({ params }: any) {
     season: 0
 
   })
+
+  const [trailer,setTrailer] = useState(false)
+
 
 
   const [player, setPlayer] = useState(false)
@@ -33,8 +37,14 @@ function page({ params }: any) {
   const casts = data?.aggregate_credits?.cast
 
 
+  const trailers = data?.videos?.results?.filter((trailer:any)=>{
+    return trailer?.type === "Trailer"
+  })
 
- 
+
+  console.log(data)
+
+ DocumentTitle(data.name ? ` ${data?.name} (${data?.first_air_date?.substring(0,4)})`:"Loading...")
   
 
   return (
@@ -53,6 +63,8 @@ function page({ params }: any) {
           setPlayer={setPlayer} 
           player={player} 
           mediaType='tv'
+          setTrailer={setTrailer}
+          
           />
 
 
@@ -80,10 +92,12 @@ function page({ params }: any) {
         <Player 
         id={data.id} 
         handlePlayer={() => setPlayer(!player)} 
-        media_type={playerValue.media_type} 
+        mediaType={trailer? "trailer":playerValue.media_type} 
         name={playerValue.name || data?.title}
         episode={playerValue.episode}
         season={playerValue.season}
+        setTrailer={setTrailer}
+        trailerKey={trailers[0]?.key}
         />
         }
         
