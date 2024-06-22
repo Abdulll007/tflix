@@ -137,7 +137,7 @@ function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { lo
                     {
                         
                             mediaType === "movie" &&
-                            <button onClick={() => { setPlayer(!player) }} className='bg-blue-500 w-full p-4 text-center font-bold rounded-md text-white'>Play Now</button>
+                            <button onClick={() => { setPlayer(!player) }} className='bg-blue-500 w-full p-4 text-center font-bold rounded-md text-white hover:bg-blue-600'>Play Now</button>
                     }
                 </div>
 

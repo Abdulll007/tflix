@@ -28,7 +28,7 @@ function page({ params }: any) {
   })
   
   
-  console.log(data)
+  
 
 
   const casts = data?.credits?.cast

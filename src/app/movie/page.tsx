@@ -27,24 +27,7 @@ function Page() {
     firstFetch()
   }, [])
 
-  // useEffect(() => {
-  //   const handleScroll = async () => {
-  //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-  //       try {
-  //         const response = await fetchMoreData(currentPage + 1)
-  //         const newTvData = response.results
-  //         setTvShows((prevTvShows) => [...prevTvShows, ...newTvData])
-  //         setCurrentPage((prevPage) => prevPage + 1) // Use functional update to ensure the correct state
-  //       } catch (error) {
-  //         console.log(error)
-  //       }
-  //     }
-  //   }
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, [currentPage]); // No need to depend on currentPage here
+  
 
   const loadMoreContent = async () => {
     try {

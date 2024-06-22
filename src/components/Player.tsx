@@ -96,7 +96,14 @@ function Player({ handlePlayer, id, season, episode, mediaType, name,setTrailer,
 
                 </iframe>
 
-                <button onClick={()=>setChangeServer(true)} className={`absolute -bottom-12 w-full sm:w-80  p-2 bg-slate-100 text-blue-700 hover:bg-blue-700 hover:text-white rounded-md text-sm sm:text-md ${changeServer && "bg-blue-700 text-white "} `}>server 2</button>
+                {mediaType!=="trailer"&&
+                
+                
+                    
+                <button onClick={()=>setChangeServer(true)} className={`absolute -bottom-12 w-full sm:w-80  p-2  hover:bg-blue-500 hover:text-white rounded-md text-sm sm:text-md ${changeServer ? "bg-blue-500 hover:bg-none hover:tex-blue":"bg-white text-blue-500"} `}>server 2</button>
+          
+               
+                }
 
             </div>
 

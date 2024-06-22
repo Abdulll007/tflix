@@ -42,7 +42,7 @@ function page({ params }: any) {
   })
 
 
-  console.log(data)
+
 
  DocumentTitle(data.name ? ` ${data?.name} (${data?.first_air_date?.substring(0,4)})`:"Loading...")
   

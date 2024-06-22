@@ -1,6 +1,7 @@
 "use client"
 
 
+import DocumentTitle from "@/components/DocumentTitile";
 import BannerImg from "@/components/sections/BannerImg";
 import MostPopular from "@/components/sections/MostPopular";
 import TopRated from "@/components/sections/TopRated";
@@ -18,7 +19,7 @@ export default function Home() {
 
 
   
-
+  DocumentTitle("TFLIX")
 
   return (
     <main 
