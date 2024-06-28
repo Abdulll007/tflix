@@ -27,7 +27,7 @@ function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { lo
 
             <div className=" max-w-56">
                 <img
-                    className='h-40 sm:h-full  rounded-md'
+                    className='h-40 sm:h-full max-h-96  rounded-md'
                     src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${data.poster_path} `}
                     alt="" />
             </div>
@@ -45,13 +45,14 @@ function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { lo
                         ) :
 
                         <div className="flex flex-col items-center justify-center w-full bg-[#222731] text-white rounded-md h-full gap-2">
-                            <div className="flex  items-center justify-around gap-8 m-2">
+                            <div className="flex  items-center justify-around gap-6 m-4">
 
-                                <div className="w-10 sm:w-14 ">
+                                <div className="w-12   sm:w-16  ml-6">
                                     <CircularProgressbar
                                         text={`${votePercent}%`} value={votePercent}
                                         minValue={0}
                                         maxValue={100}
+                                        
                                         styles={buildStyles(
                                             {
                                                 textColor: "white"
@@ -60,7 +61,7 @@ function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { lo
                                     />
                                 </div>
 
-                                <h2>
+                                <h2 className='text-2xl sm:text-2xl md:text-3xl font-bold text-center'>
                                     {data.title || data.name}
                                 </h2>
 
@@ -69,7 +70,7 @@ function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { lo
                             </div>
 
 
-                            {mediaType==="tv" && <div className="w-full grid justify-center gap-1">
+                            {mediaType==="tv" && <div className="w-full grid justify-center gap-1 px-3">
 
                                 <div className="grid grid-cols-2 gap-10">
                                     <p className='font-bold'>First Air Date</p>
@@ -92,7 +93,7 @@ function Details({ loading, data, setPlayer, player ,mediaType,setTrailer}: { lo
 
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-10">
+                                <div className="grid grid-cols-2 gap-10 text-nowrap">
                                     <p className='font-bold'>Last Air Date</p>
                                     <p className="">{data.last_air_date}</p>
 

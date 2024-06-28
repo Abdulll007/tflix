@@ -9,8 +9,8 @@ function Player({ handlePlayer, id, season, episode, mediaType, name,setTrailer,
 
     useEffect(() => {
 
-        window.scrollTo({ top: -10, behavior: "smooth" })
-        document.body.style.overflow = "hidden"
+        window.scrollTo({ top: 0, behavior: "smooth" })
+        // document.body.style.overflow = "hidden"
 
     }, [])
 
@@ -70,7 +70,7 @@ function Player({ handlePlayer, id, season, episode, mediaType, name,setTrailer,
                     setChangeServer(false)
                     setTrailer(false)
                     
-                    document.body.style.overflow = ""
+                    
                 }
                 }
                 >

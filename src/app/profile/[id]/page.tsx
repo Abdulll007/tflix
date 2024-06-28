@@ -1,5 +1,6 @@
 "use client"
 import DocumentTitle from '@/components/DocumentTitile'
+import ProfileFilmatography from '@/components/ProfileFilmatography'
 import useFetchData from '@/helper/FetchHook'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -106,19 +107,7 @@ function Profile({ params }: any) {
                             moviecast?.map((movie: any) => (
                                 <Link href={`/movie/${movie.id}`} className=" text-center my-4" key={movie.id}>
 
-                                    <div className="">
-                                        <p className="">{movie.release_date ? movie.release_date?.substring(0, 4) : "-"}</p>
-                                    </div>
-
-                                    <div className="flex flex-col items-center">
-
-                                        <h3 className="">{movie?.title}</h3>
-
-                                        <p className=""><span className='font-thin px-2'>as</span>{movie.character}</p>
-
-                                    </div>
-
-                                    <hr className='my-4' />
+                                    <ProfileFilmatography media={movie}/>
 
                                 </Link>
                             ))
@@ -126,21 +115,7 @@ function Profile({ params }: any) {
                             tvcast?.map((tv: any) => (
                                 <Link href={`/tv/${tv.id}`} className=" text-center my-4" key={tv.credit_id}>
 
-                                    <div className="">
-                                        <p className="">{tv.first_air_date
-                                            ? tv.first_air_date
-                                                ?.substring(0, 4) : "-"}</p>
-                                    </div>
-
-                                    <div className="flex flex-col items-center">
-
-                                        <h3 className="">{tv?.name}</h3>
-
-                                        <p className=""><span className='font-thin px-2'>as</span>{tv.character}</p>
-
-                                    </div>
-
-                                    <hr className='my-4' />
+                                    <ProfileFilmatography media={tv}/>
 
                                 </Link>
                             ))

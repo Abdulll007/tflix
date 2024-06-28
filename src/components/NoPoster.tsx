@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 import React from 'react'
 
 function NoPoster({userWidth,userHeight}:{userWidth:number,userHeight:number}) {

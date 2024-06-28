@@ -58,14 +58,10 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
 
 
 
-  
-  
-
-
 
 
   return (
-    <div className=' w-full  text-white  p-4 rounded-lg ' >
+    <div className=' w-full  text-white h-96 rounded-lg ' >
 
 
       <div className="p-2 mb-2   flex gap-3">
@@ -100,10 +96,10 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
 
       </div>
 
-      <div className="flex overflow-scroll">
+      <div className="flex overflow-scroll no-scrollbar">
 
 
-        {tvEpisodes?.map((episode: any) => (
+        {tvEpisodes.length>0 ? tvEpisodes?.map((episode: any) => (
           <div onClick={() => {
 
             setPlayerValue((prev:any) => (
@@ -144,7 +140,10 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
               </div>
             </div>
           </div>
-        ))
+        )) : 
+        <div className="w-full h-4/5 flex justify-center items-center">
+          Episodes Not Available Yet Please Try Later
+        </div>
 
         }
       </div>

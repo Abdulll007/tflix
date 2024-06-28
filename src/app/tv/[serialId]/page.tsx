@@ -55,7 +55,7 @@ function page({ params }: any) {
 
         <Poster loading={loading} data={data} />
 
-        <section className='mx-5 sm:mx-24 lg:mx-36 relative   flex flex-col items-center gap-6  '>
+        <section className='mx-5 sm:mx-14 lg:mx-36 relative flex flex-col items-center gap-6  '>
 
           <Details 
           data={data} 
@@ -84,8 +84,8 @@ function page({ params }: any) {
 
           <Cast casts={casts} loading={loading} />
 
-          <Recommendation recommendations={data?.recommendations?.results}/>
-
+          {data?.recommendations?.results?.length >0 &&<Recommendation recommendations={data?.recommendations?.results}/>
+}
         </section>
 
         {player && 

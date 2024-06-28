@@ -74,7 +74,7 @@ function page({ params }: any) {
           <Cast casts={casts} loading={loading} />
 
 
-          <Recommendation recommendations={data?.recommendations?.results}/>
+          {data?.recommendations?.results?.length >0 &&<Recommendation recommendations={data?.recommendations?.results}/>}
 
 
         </section>
