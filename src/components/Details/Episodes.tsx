@@ -53,7 +53,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
 
   const changeSeason = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSeasonChange(Number(e.target.value))
-
+   
   }
 
 
@@ -141,7 +141,7 @@ function Episodes({ seasons, id,player,setPlayer,setPlayerValue }: { seasons: an
             </div>
           </div>
         )) : 
-        <div className="w-full h-4/5 flex justify-center items-center">
+        <div className=" w-full h-60 flex justify-center items-center">
           Episodes Not Available Yet Please Try Later
         </div>
 
