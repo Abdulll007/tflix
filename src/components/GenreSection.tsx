@@ -1,3 +1,4 @@
+"use client"
 import useWindowSize from "@/helper/windowSize";
 import React, { useEffect, useState } from "react";
 
