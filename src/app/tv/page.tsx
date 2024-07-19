@@ -51,7 +51,7 @@ function Page() {
     }
   };
 
-  DocumentTitle("TFLIX - Tv Shows");
+  // DocumentTitle("TFLIX - Tv Shows");
 
   return (
     <div className="flex flex-col items-center">
