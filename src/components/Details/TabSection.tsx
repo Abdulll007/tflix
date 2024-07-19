@@ -70,6 +70,7 @@ const TabSection = ({
             posterPath={data.poster_path}
             cast={data?.credits?.cast}
             productions={data?.production_companies}
+            overview={data?.overview}
           />
         </Tab>
         {mediaType === "tv" && (

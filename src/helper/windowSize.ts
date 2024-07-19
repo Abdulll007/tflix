@@ -1,6 +1,5 @@
+"use client"
 import React, { useEffect, useState } from 'react'
-
-
 const getWindowSize = () =>{
     const { innerWidth: width, innerHeight: height } = window;
   return {

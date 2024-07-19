@@ -1,5 +1,11 @@
 import useWindowSize from "@/helper/windowSize";
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -20,23 +26,22 @@ function Player({
   episode?: number;
   mediaType: string;
   videokey: string;
-  setPlayerValue:Dispatch<
-  SetStateAction<{
-    name?: string;
-    media_type?: string;
-    episode?: number;
-    season?: number;
-    videokey?: string;
-  }>
->;
+  setPlayerValue: Dispatch<
+    SetStateAction<{
+      name?: string;
+      media_type?: string;
+      episode?: number;
+      season?: number;
+      videokey?: string;
+    }>
+  >;
 }) {
   const [changeServer, setChangeServer] = useState(false);
 
   const checkMediaType = (mediaType: string, server: boolean) => {
     if (!server) {
-      // return `https://www.youtube.com/embed/${trailerKey}?autoplay=1`;
-      if(mediaType === "video"){
-        return `https://www.youtube.com/embed/${videokey}?autoplay=1`
+      if (mediaType === "video") {
+        return `https://www.youtube.com/embed/${videokey}?autoplay=1`;
       }
       if (mediaType === "movie") {
         return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`;
@@ -107,16 +112,16 @@ function Player({
         onClick={() => {
           document.body.style.overflow = "";
           handlePlayer();
-          setPlayerValue((prev)=>{
+          setPlayerValue((prev) => {
             return {
               ...prev,
-              name:"",
-              episode:0,
-              season:0,
-              media_type:"",
-              videokey:""
-            }
-          })
+              name: "",
+              episode: 0,
+              season: 0,
+              media_type: "",
+              videokey: "",
+            };
+          });
         }}
       >
         <IoCloseSharp size={27} />

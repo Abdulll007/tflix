@@ -2,7 +2,6 @@
 import React, {
   Dispatch,
   SetStateAction,
-  memo,
   useEffect,
   useMemo,
   useRef,

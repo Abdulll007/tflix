@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Skeleton from "react-loading-skeleton";
+
 
 type styleProp = {
   cardWidth?: string;
@@ -27,8 +27,8 @@ const Cards = memo(
       release_date,
       first_air_date,
       vote_average,
-    }: CardData,
-    cardWidth: styleProp
+    }: CardData
+    
   ) => {
     const votePercent = Math.ceil((vote_average * 100) / 10);
 

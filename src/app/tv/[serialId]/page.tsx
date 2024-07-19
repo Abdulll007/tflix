@@ -18,7 +18,7 @@ function page({ params }: any) {
   const [selectedTab, setSelectedTab] = useState("overview");
 
   const [player, setPlayer] = useState(false);
-  
+
   type PlayerState = {
     name?: string;
     media_type?: string;
@@ -34,7 +34,6 @@ function page({ params }: any) {
     season: 0,
     videokey: "",
   });
-  
 
   DocumentTitle(
     data.name
@@ -72,7 +71,7 @@ function page({ params }: any) {
           mediaType="tv"
           setPlayer={setPlayer}
           player={player}
-          setPlayerValue={ setPlayerValue}
+          setPlayerValue={setPlayerValue}
         />
 
         <Recommendation recommendations={data?.recommendations?.results} />
@@ -82,7 +81,9 @@ function page({ params }: any) {
         <Player
           id={data.id}
           handlePlayer={() => setPlayer(!player)}
-          mediaType={`${playerValue.media_type ? playerValue.media_type :"movie"}`}
+          mediaType={`${
+            playerValue.media_type ? playerValue.media_type : "movie"
+          }`}
           name={playerValue.name}
           episode={playerValue.episode}
           season={playerValue.season}

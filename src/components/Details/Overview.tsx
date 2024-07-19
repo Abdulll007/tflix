@@ -1,6 +1,5 @@
-import { tv } from "@/helper/test";
-import React, { Dispatch, SetStateAction, memo } from "react";
-import Skeleton from "react-loading-skeleton";
+import React, { memo } from "react";
+
 import Cast from "./Cast";
 
 interface OverviewPrams {
@@ -21,10 +20,11 @@ interface OverviewPrams {
   network?: string;
   posterPath: string;
   productions?: {
-    id:number
-    name:string
+    id: number;
+    name: string;
   }[];
   cast: [];
+  overview:string
 }
 
 const Overview = memo(
@@ -44,13 +44,13 @@ const Overview = memo(
     posterPath,
     cast,
     productions,
+    overview
   }: OverviewPrams) => {
     const destructGenre = genres?.map((genre) => genre.name);
 
-
-    const runtimeConverter = (minutes:number) => {
+    const runtimeConverter = (minutes: number) => {
       let finalmin = `${Math.floor(minutes / 60)}h ${minutes % 60}min`;
-    
+
       return finalmin;
     };
 
@@ -70,7 +70,7 @@ const Overview = memo(
           <div className="">
             <div className=" mb-10 max-w-5xl">
               <h2 className="text-lg mb-4">Over View</h2>
-              <div className="text-[.85rem] ">{tv.overview}</div>
+              <div className="text-[.85rem] ">{overview}</div>
             </div>
             <div className="">
               <ul className="lg:flex flex-wrap xl:block ">
@@ -106,7 +106,9 @@ const Overview = memo(
                     <div className=" flex-1">
                       <div className="">Runtime</div>
                     </div>
-                    <div className="flex-2 max-h-24 ">{runtimeConverter(runtime)}</div>
+                    <div className="flex-2 max-h-24 ">
+                      {runtimeConverter(runtime)}
+                    </div>
                   </li>
                 )}
 
@@ -181,19 +183,16 @@ const Overview = memo(
                   </li>
                 )}
 
-                {(budget && productions) && (
+                {budget && productions && (
                   <li className="flex my-2 gap-6  text-sm lg:text-base lg:w-2/4">
                     <div className=" flex-1">
                       <div className="">Production Companies</div>
                     </div>
                     <div className="flex-2 max-h-24 ">
-                    {productions?.map((production) => (
-                        <div key={production.id} >
-
-                          {production.name}
-                        </div>
+                      {productions?.map((production) => (
+                        <div key={production.id}>{production.name}</div>
                       ))}
-                      </div>
+                    </div>
                   </li>
                 )}
               </ul>

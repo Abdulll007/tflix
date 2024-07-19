@@ -34,43 +34,40 @@ const GenreSection = ({
     });
   };
 
-  
+  const size = useWindowSize();
 
-  const size = useWindowSize()
+  const [toggleFilter, setToggleFilter] = useState(false);
 
-  const [toggleFilter,setToggleFilter] = useState(false)
-
-  useEffect(()=>{
-    if(size.width>640){
-      setToggleFilter(true)
-
+  useEffect(() => {
+    if (size.width > 640) {
+      setToggleFilter(true);
+    } else {
+      setToggleFilter(false);
     }
-    else{
-      setToggleFilter(false)
-    }
-  },[size])
-
+  }, [size]);
 
   return (
     <>
-      <div className="w-full bg-[#323232] px-4 py-3 cursor-pointer sm:hidden rounded-md "
-      onClick={()=>setToggleFilter(!toggleFilter)}
+      <div
+        className="w-full bg-[#323232] px-4 py-3 cursor-pointer sm:hidden rounded-md "
+        onClick={() => setToggleFilter(!toggleFilter)}
       >
         <h1 className="">Filters</h1>
       </div>
 
-      {toggleFilter && Genres.map((genres, index) => (
-        <p
-          key={`${genres.id}${index}`}
-          className={`bg-[#323232] py-1 px-2 rounded-md cursor-pointer text-center`}
-          onClick={(e) => {
-            handleClick(e);
-            handleStateChange(genres.id);
-          }}
-        >
-          {genres.name}
-        </p>
-      ))}
+      {toggleFilter &&
+        Genres.map((genres, index) => (
+          <p
+            key={`${genres.id}${index}`}
+            className={`bg-[#323232] py-1 px-2 rounded-md cursor-pointer text-center`}
+            onClick={(e) => {
+              handleClick(e);
+              handleStateChange(genres.id);
+            }}
+          >
+            {genres.name}
+          </p>
+        ))}
     </>
   );
 };

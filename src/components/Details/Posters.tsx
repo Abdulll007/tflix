@@ -9,9 +9,6 @@ const Posters = ({
   posters: [];
   logos: [];
 }) => {
-
-
-
   return (
     <div className="">
       <div className="">
@@ -88,41 +85,40 @@ const Posters = ({
         </div>
       </div>
 
+      {logos.length > 0 && (
+        <div className="">
+          <h2 className="text-white text-xl mb-4"> Logos</h2>
+          <div className="flex flex-col sm:flex-row sm:overflow-scroll sm:no-scrollbar  gap-5 ">
+            {logos.length > 0 &&
+              logos?.map((logos: any) => (
+                <div
+                  //   onClick={() => {
+                  //     document.body.style.overflow = "hidden"
+                  //     setPlayerValue((prev: any) => ({
+                  //       ...prev,
+                  //       backdrops: backdrops.backdrops_number,
+                  //       media_type: "tv",
+                  //       name: backdrops.name,
+                  //       season: backdrops.season_number,
+                  //     }));
 
-      {logos.length> 0 && <div className="">
-        <h2 className="text-white text-xl mb-4"> Logos</h2>
-        <div className="flex flex-col sm:flex-row sm:overflow-scroll sm:no-scrollbar  gap-5 ">
-          {logos.length > 0 &&
-            logos?.map((logos: any) => (
-              <div
-                //   onClick={() => {
-                //     document.body.style.overflow = "hidden"
-                //     setPlayerValue((prev: any) => ({
-                //       ...prev,
-                //       backdrops: backdrops.backdrops_number,
-                //       media_type: "tv",
-                //       name: backdrops.name,
-                //       season: backdrops.season_number,
-                //     }));
-
-                //     setPlayer(!player);
-                //   }}
-                className="  "
-                key={logos?.file_path}
-              >
-                <div className="mb-4 sm:w-72 lg:w-96   relative pb-[56.25%] ">
-                  <img
-                    className="  w-full h-full rounded-lg absolute top-0 left-0 "
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${logos.file_path}`}
-                    alt=""
-                  />
+                  //     setPlayer(!player);
+                  //   }}
+                  className="  "
+                  key={logos?.file_path}
+                >
+                  <div className="mb-4 sm:w-72 lg:w-96   relative pb-[56.25%] ">
+                    <img
+                      className="  w-full h-full rounded-lg absolute top-0 left-0 "
+                      src={`${process.env.NEXT_PUBLIC_IMAGE_URI}${logos.file_path}`}
+                      alt=""
+                    />
+                  </div>
                 </div>
-
-                
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 };

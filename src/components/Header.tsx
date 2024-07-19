@@ -31,7 +31,6 @@ function Header({ params }: any) {
           )}
 
           <div className="flex flex-row-reverse gap-6 items-center text-lg sm:text-xl ">
-
             <ul className="hidden sm:flex gap-2 text-white ">
               <li>
                 <Link href={"/movie"}>Movies</Link>
@@ -42,7 +41,7 @@ function Header({ params }: any) {
                 </Link>
               </li>
             </ul>
-            
+
             <span className="font-bold text-3xl">
               <Link href={"/"} className="">
                 TFLIX

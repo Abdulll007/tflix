@@ -1,10 +1,9 @@
 import React from "react";
 import Cards from "../Cards";
 import useFetchData from "@/helper/FetchHook";
-import LoadingSkeleton from "../LoadingSkeleton";
+
 import Link from "next/link";
-import { options } from "@/helper/apiConfig";
-import axios from "axios";
+
 
 function Upcoming() {
   const [data, loading] = useFetchData(
@@ -19,7 +18,7 @@ function Upcoming() {
       <h1 className="text-xl font-semibold my-4">Upcoming</h1>
 
       <div className="overflow-y-scroll no-scrollbar flex gap-6">
-        {/* {loading && <LoadingSkeleton cards={20} />} */}
+        
 
         {data?.map((upcoming: any) => (
           <Link href={`/movie/${upcoming.id}`} key={upcoming.id}>

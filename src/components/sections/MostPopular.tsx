@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
 import Cards from "../Cards";
-import LoadingSkeleton from "../LoadingSkeleton";
+
 import Link from "next/link";
 import useFetchData from "@/helper/FetchHook";
 

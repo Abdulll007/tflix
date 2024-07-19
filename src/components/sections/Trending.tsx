@@ -12,7 +12,7 @@ function Trending({ data, loading }: { data: any; loading: boolean }) {
       <h1 className="text-xl font-semibold ">Trending</h1>
 
       <div className="overflow-y-scroll no-scrollbar flex gap-6">
-        {/* {loading && <LoadingSkeleton cards={20} />} */}
+        
 
         {data?.map((trending: any) => (
           <Link

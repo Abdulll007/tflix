@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 
 function ProfileFilmatography({ media }: { media: any }) {
@@ -21,17 +20,18 @@ function ProfileFilmatography({ media }: { media: any }) {
       </div>
 
       <div className="">
-
         <div className="flex flex-col items-center">
-          <h3 className="text-xl sm:text-2xl font-semibold">{media?.title || media?.name}</h3>
+          <h3 className="text-xl sm:text-2xl font-semibold">
+            {media?.title || media?.name}
+          </h3>
 
           <p className="">
             <span className="font-thin px-2">as</span>
             {media.character}
           </p>
-        <div className="">
-          <p className="">{movieDate || tvDate || "-"}</p>
-        </div>
+          <div className="">
+            <p className="">{movieDate || tvDate || "-"}</p>
+          </div>
         </div>
       </div>
     </div>

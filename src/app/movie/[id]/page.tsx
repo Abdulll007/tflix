@@ -1,10 +1,8 @@
 "use client";
 import Player from "@/components/Player";
 import useFetchData from "@/helper/FetchHook";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import Overview from "@/components/Details/Overview";
-import Cast from "@/components/Details/Cast";
 import Recommendation from "@/components/sections/Recommendation";
 import DocumentTitle from "@/components/DocumentTitile";
 import HeroSection from "@/components/Details/HeroSection";
@@ -12,8 +10,6 @@ import TabSection from "@/components/Details/TabSection";
 
 function page({ params }: any) {
   const [player, setPlayer] = useState(false);
-
-  
 
   const [data, loading] = useFetchData(
     ` ${process.env.NEXT_PUBLIC_REQUEST_API}/movie/${params.id}?append_to_response=language=en-US,videos,credits,images,external_ids,recommendations,content_ratings&include_image_language=en`
@@ -49,7 +45,6 @@ function page({ params }: any) {
     );
   }
 
-  
   return (
     <main className="">
       <HeroSection
@@ -82,7 +77,7 @@ function page({ params }: any) {
         <Player
           id={data.id}
           handlePlayer={() => setPlayer(!player)}
-          mediaType={playerValue.media_type ? playerValue.media_type :"movie"}
+          mediaType={playerValue.media_type ? playerValue.media_type : "movie"}
           name={playerValue.name}
           episode={playerValue.episode}
           season={playerValue.season}

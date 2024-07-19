@@ -3,7 +3,7 @@ import Cards from "@/components/Cards";
 import DocumentTitle from "@/components/DocumentTitile";
 import GenreSection from "@/components/GenreSection";
 import { movieGenres } from "@/components/genres";
-import useFetchData from "@/helper/FetchHook";
+
 import { options } from "@/helper/apiConfig";
 import axios from "axios";
 import Link from "next/link";

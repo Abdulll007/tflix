@@ -1,4 +1,3 @@
-// import { data } from '@/helper/test'
 import React, { SetStateAction } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -15,19 +14,16 @@ interface HeroSectionProps {
   vote_average: number;
   runtime?: number;
   mediaType: string;
-  player?:boolean
-  setPlayer?:React.Dispatch<SetStateAction<boolean>>
+  player?: boolean;
+  setPlayer?: React.Dispatch<SetStateAction<boolean>>;
   setSelectedTab?: React.Dispatch<SetStateAction<string>>;
 }
 
-const runtimeConverter = (minutes:number) => {
+const runtimeConverter = (minutes: number) => {
   let finalmin = `${Math.floor(minutes / 60)}h ${minutes % 60}min`;
 
   return finalmin;
 };
-
-
-
 
 const HeroSection = (data: HeroSectionProps) => {
   const votePercent = Math.ceil((data.vote_average * 100) / 10);
@@ -42,7 +38,6 @@ const HeroSection = (data: HeroSectionProps) => {
               className=" w-full h-full object-cover"
             />
           </div>
-          
         </div>
         <div className="bg-black lg:absolute top-0 left-0 bottom-0 px-6 pb-6 sm:px-10 sm:pb-10 lg:p-20 lg:w-[50%] flex flex-col justify-center bg-transparent ">
           <h1 className="text-3xl mb-2 lg:mb-3">{data.name}</h1>
@@ -99,31 +94,25 @@ const HeroSection = (data: HeroSectionProps) => {
             </button>
           )}
 
-
-          { data.mediaType === "movie" &&
+          {data.mediaType === "movie" && (
             <button
-            onClick={() =>
-              data.setPlayer && data.setPlayer(!data.player)
-            }
-            className="hidden lg:block self-start mt-5 p-3 bg-gray-700 rounded-md"
-          >
-            Play Movie
-          </button>
-          }
-
+              onClick={() => data.setPlayer && data.setPlayer(!data.player)}
+              className="hidden lg:block self-start mt-5 p-3 bg-gray-700 rounded-md"
+            >
+              Play Movie
+            </button>
+          )}
         </div>
 
-        {data.mediaType==="movie" && <div className="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center lg:hidden">
-            
-            <IoPlayCircleSharp 
-            size={50}
-            className="cursor-pointer"
-            onClick={() =>
-              data.setPlayer && data.setPlayer(!data.player)
-            }
+        {data.mediaType === "movie" && (
+          <div className="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center lg:hidden">
+            <IoPlayCircleSharp
+              size={50}
+              className="cursor-pointer"
+              onClick={() => data.setPlayer && data.setPlayer(!data.player)}
             />
-
-          </div>}
+          </div>
+        )}
       </div>
     </div>
   );
