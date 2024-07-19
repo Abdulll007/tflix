@@ -1,13 +1,16 @@
 "use client";
 import Cards from "@/components/Cards";
 import DocumentTitle from "@/components/DocumentTitile";
-import GenreSection from "@/components/GenreSection";
 import { tvGenres } from "@/components/genres";
 
 import { options } from "@/helper/apiConfig";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+const GenreSection = dynamic(() => import("../../components/GenreSection"), {
+  ssr: false,
+});
 
 function Page() {
   const [tvShows, setTvShows] = useState<any[]>([]);
@@ -51,7 +54,7 @@ function Page() {
     }
   };
 
-  // DocumentTitle("TFLIX - Tv Shows");
+  DocumentTitle("TFLIX - Tv Shows");
 
   return (
     <div className="flex flex-col items-center">
