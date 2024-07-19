@@ -1,116 +1,128 @@
-import React, { useEffect, useRef, useState } from 'react'
+import useWindowSize from "@/helper/windowSize";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
-import { IoCloseSharp} from "react-icons/io5";
+import { IoCloseSharp } from "react-icons/io5";
 
+function Player({
+  handlePlayer,
+  id,
+  season,
+  episode,
+  mediaType,
+  name,
+  setPlayerValue,
+  videokey,
+}: {
+  handlePlayer: () => void;
+  id: number;
+  name?: string;
+  season?: number;
+  episode?: number;
+  mediaType: string;
+  videokey: string;
+  setPlayerValue:Dispatch<
+  SetStateAction<{
+    name?: string;
+    media_type?: string;
+    episode?: number;
+    season?: number;
+    videokey?: string;
+  }>
+>;
+}) {
+  const [changeServer, setChangeServer] = useState(false);
 
-function Player({ handlePlayer, id, season, episode, mediaType, name,setTrailer,trailerKey}: { handlePlayer: () => void, id: number, name: string, season?: number, episode?: number , mediaType:string ,setTrailer:(value:boolean)=>void,trailerKey:string}) {
-
-    const [changeServer, setChangeServer] = useState(false)
-
-    useEffect(() => {
-
-        window.scrollTo({ top: 0, behavior: "smooth" })
-        // document.body.style.overflow = "hidden"
-
-    }, [])
-
-
-    const checkMediaType = (mediaType: string, server: boolean) => {
-        
-        if (!server) {
-          
-            if(mediaType === "trailer"){
-                return `https://www.youtube.com/embed/${trailerKey}?autoplay=1`
-
-            }else if (mediaType === "movie") {
-                return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`
-            }
-            else {
-                return `${process.env.NEXT_PUBLIC_TV_URI}${id}&season=${season}&episode=${episode}`
-            }
-        }
-        else {
-            
-            if(mediaType === "trailer"){
-                return `https://www.youtube.com/embed/${trailerKey}?autoplay=1`
-
-            }else if (mediaType === "movie") {
-                
-                return `${process.env.NEXT_PUBLIC_MOVIE_URI2}${id}&tmdb=1`
-
-            }
-            else {
-                return `${process.env.NEXT_PUBLIC_TV_URI2}${id}&tmdb=1&season=${season}&episode=${episode}`
-            }
-        }
-
-
+  const checkMediaType = (mediaType: string, server: boolean) => {
+    if (!server) {
+      // return `https://www.youtube.com/embed/${trailerKey}?autoplay=1`;
+      if(mediaType === "video"){
+        return `https://www.youtube.com/embed/${videokey}?autoplay=1`
+      }
+      if (mediaType === "movie") {
+        return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`;
+      } else {
+        return `${process.env.NEXT_PUBLIC_TV_URI}${id}&season=${season}&episode=${episode}`;
+      }
+    } else {
+      if (mediaType === "movie") {
+        return `${process.env.NEXT_PUBLIC_MOVIE_URI2}${id}&tmdb=1`;
+      } else {
+        return `${process.env.NEXT_PUBLIC_TV_URI2}${id}&tmdb=1&season=${season}&episode=${episode}`;
+      }
     }
+  };
 
-    
-   
+  const videoType = checkMediaType(mediaType, changeServer);
 
+  const size = useWindowSize();
+  const [widthHeight, setWidthHeight] = useState(size);
 
+  useEffect(() => {
+    const settingDelay = setTimeout(() => {
+      setWidthHeight(size);
+    }, 600);
 
+    return () => clearTimeout(settingDelay);
+  }, [size]);
 
-    const videoType = checkMediaType(mediaType,changeServer)
+  const iframeWidth = Math.min(widthHeight.width * 0.8, window.innerWidth); // maximum width of 800px
+  const iframeHeight = iframeWidth * (9 / 16);
 
-
-
-
-    return (
+  return (
+    <div className="fixed top-0 left-0 bottom-0 right-0 z-10 bg-black flex items-center justify-center lg:px-20 xl:px-40 ">
+      <div className="relative m-auto w-full">
         <div
-            className='w-full h-full  absolute top-0 flex flex-col items-center  text-white  playerblur p-1  '
+          className="relative aspect-video "
+          style={{ width: "100%", height: iframeHeight }}
         >
+          <iframe
+            src={videoType}
+            referrerPolicy="origin"
+            allowFullScreen
+            className="absolute top-0 left-0 p-0 m-0 w-full h-full block "
+          ></iframe>
+          <h2 className="absolute -top-10 text-center w-full text-white place-self-center">
+            {name}
+          </h2>
 
-            <div className=" w-full  p-4">
-                <button onClick={() => {
-
-                    handlePlayer()
-                    setChangeServer(false)
-                    setTrailer(false)
-                    
-                    
-                }
-                }
-                >
-                    <IoCloseSharp size={30} />
-                </button>
+          {mediaType !== "video" && (
+            <div className="  w-full flex justify-center bg-white">
+              <button
+                onClick={() => setChangeServer(!changeServer)}
+                className={`absolute -bottom-10  p-2  hover:bg-blue-500 hover:text-white rounded-md text-sm sm:text-md ${
+                  changeServer
+                    ? "bg-blue-500 hover:bg-blue-700 text-white"
+                    : "bg-white text-blue-500"
+                }`}
+              >
+                Server 2
+              </button>
             </div>
-
-            <p className="text-bold text-2xl">
-                {name}
-            </p>
-            <div className=" w-full h-60 sm:h-[40rem] sm:w-4/5 object-cover relative  flex flex-col justify-center items-center "
-
-
-            >
-
-
-
-
-                <iframe src={videoType} style={{width: "100%", height: "100%" }} referrerPolicy="origin" allowFullScreen className='rounded '
-
-                >
-
-
-                </iframe>
-
-                {mediaType!=="trailer"&&
-                
-                
-                    
-                <button onClick={()=>setChangeServer(true)} className={`absolute -bottom-12 w-full sm:w-80  p-2  hover:bg-blue-500 hover:text-white rounded-md text-sm sm:text-md ${changeServer ? "bg-blue-500 hover:bg-none hover:tex-blue":"bg-white text-blue-500"} `}>server 2</button>
-          
-               
-                }
-
-            </div>
-
-
-
+          )}
         </div>
-    )
+      </div>
+
+      <div
+        className="absolute top-4 left-4 text-white cursor-pointer flex w-full "
+        onClick={() => {
+          document.body.style.overflow = "";
+          handlePlayer();
+          setPlayerValue((prev)=>{
+            return {
+              ...prev,
+              name:"",
+              episode:0,
+              season:0,
+              media_type:"",
+              videokey:""
+            }
+          })
+        }}
+      >
+        <IoCloseSharp size={27} />
+      </div>
+    </div>
+  );
 }
 
-export default Player
+export default Player;

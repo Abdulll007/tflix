@@ -34,7 +34,7 @@ function Profile({ params }: any) {
     DocumentTitle(data ? data?.name:"Loading...")
 
     return (
-        <div className="min-h-screen m-6  grid sm:grid-flow-col text-white sm:mx-32 gap-6">
+        <div className="min-h-screen m-6  grid sm:grid-flow-col text-white lg:mx-28 gap-6">
             <div className=" sm:col-span-1">
                 <div className="flex flex-col items-center sm:flex-row  ">
 

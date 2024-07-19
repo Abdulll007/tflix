@@ -10,7 +10,7 @@ function MobileNavbar({toggleMenu, setToggleMenu}:{toggleMenu:boolean, setToggle
 
         
 
-      <div className="sm:hidden bg-[#1e1e1e] absolute h-screen top-0 left-0 w-48  pt-4 text-xl  ">
+      <div className="sm:hidden bg-[#1e1e1e] absolute h-screen top-0 left-0 w-48  pt-4 text-xl z ">
 
         <IoCloseSharp
 

@@ -1,102 +1,97 @@
-"use client"
-import Player from '@/components/Player';
-import useFetchData from '@/helper/FetchHook';
-import React, { useEffect, useState } from 'react'
+"use client";
+import Player from "@/components/Player";
+import useFetchData from "@/helper/FetchHook";
+import React, { useEffect, useState } from "react";
 
-import Poster from '@/components/Details/Poster';
-import Details from '@/components/Details/Details';
-import Overview from '@/components/Details/Overview';
-import Cast from '@/components/Details/Cast';
-import Recommendation from '@/components/sections/Recommendation';
-import DocumentTitle from '@/components/DocumentTitile';
-
-
+import Overview from "@/components/Details/Overview";
+import Cast from "@/components/Details/Cast";
+import Recommendation from "@/components/sections/Recommendation";
+import DocumentTitle from "@/components/DocumentTitile";
+import HeroSection from "@/components/Details/HeroSection";
+import TabSection from "@/components/Details/TabSection";
 
 function page({ params }: any) {
+  const [player, setPlayer] = useState(false);
 
-  const [player, setPlayer] = useState(false)
-  
-  const [trailer,setTrailer] = useState(false)
-  
-  
-  const [data, loading] = useFetchData(` ${process.env.NEXT_PUBLIC_REQUEST_API}/movie/${params.id}?append_to_response=credits,recommendations,videos`)
-  
   
 
-  const trailers = data?.videos?.results?.filter((trailer:any)=>{
-    return trailer?.type === "Trailer"
-  })
+  const [data, loading] = useFetchData(
+    ` ${process.env.NEXT_PUBLIC_REQUEST_API}/movie/${params.id}?append_to_response=language=en-US,videos,credits,images,external_ids,recommendations,content_ratings&include_image_language=en`
+  );
+
+  DocumentTitle(
+    data.title
+      ? `${data?.title} (${data?.release_date?.substring(0, 4)})`
+      : "Loading..."
+  );
+
+  type PlayerState = {
+    name?: string;
+    media_type?: string;
+    episode?: number;
+    season?: number;
+    videokey?: string;
+  };
+
+  const [playerValue, setPlayerValue] = useState<PlayerState>({
+    name: "",
+    media_type: "",
+    episode: 0,
+    season: 0,
+    videokey: "",
+  });
+
+  if (loading) {
+    return (
+      <main className=" relative ">
+        <div className="z-10 fixed top-0 left-0 bottom-0 right-0 bg-[#1f1f1f] ease-in-out"></div>
+      </main>
+    );
+  }
+
   
-  
-  
-
-
-  const casts = data?.credits?.cast
-
-
-
-  DocumentTitle(data.title ? `${data?.title} (${data?.release_date?.substring(0,4)})`:"Loading...")
-
   return (
+    <main className="">
+      <HeroSection
+        first_air_date={data.release_date}
+        backdrop_path={data.backdrop_path}
+        name={data.title}
+        overview={data.overview}
+        vote_average={data.vote_average}
+        vote_count={data.vote_count}
+        content_ratings={""}
+        runtime={data.runtime}
+        mediaType="movie"
+        player={player}
+        setPlayer={setPlayer}
+      />
 
-    
-    <main
-      className="flex min-h-screen flex-col relative">
+      <div className="mx-4 sm:mx-10">
+        <TabSection
+          data={data}
+          mediaType="movie"
+          player={player}
+          setPlayer={setPlayer}
+          setPlayerValue={setPlayerValue}
+        />
 
-      <div className="flex flex-col relative gap-4 w-full " >
-
-        <Poster loading={loading} data={data} />
-
-
-
-
-        <section className="mx-5 sm:mx-24 lg:mx-36 relative   flex flex-col items-center  gap-6 ">
-
-
-
-          <Details 
-          data={data} 
-          loading={loading} 
-          setPlayer={setPlayer} 
-          player={player} 
-          mediaType={"movie"}
-        
-          setTrailer={setTrailer}
-          />
-
-
-
-
-          <Overview loading={loading} data={data} />
-
-          
-
-          <Cast casts={casts} loading={loading} />
-
-
-          {data?.recommendations?.results?.length >0 &&<Recommendation recommendations={data?.recommendations?.results}/>}
-
-
-        </section>
-
-
-
-        {player &&
-          <Player
-            id={data?.id}
-            handlePlayer={() => setPlayer(!player)}
-            mediaType={trailer?"trailer":"movie"}
-            setTrailer={setTrailer}
-            trailerKey={trailers[0]?.key}
-            name={data?.title || data?.name}
-          />}
-
-
-
+        <Recommendation recommendations={data?.recommendations?.results} />
       </div>
 
+      {player && (
+        <Player
+          id={data.id}
+          handlePlayer={() => setPlayer(!player)}
+          mediaType={playerValue.media_type ? playerValue.media_type :"movie"}
+          name={playerValue.name}
+          episode={playerValue.episode}
+          season={playerValue.season}
+          videokey={playerValue.videokey || ""}
+          setPlayerValue={setPlayerValue}
+        />
+      )}
     </main>
-  )
+  );
 }
 
-export default page
+export default page;

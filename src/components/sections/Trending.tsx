@@ -1,43 +1,25 @@
-"use client"
+"use client";
 
+import Cards from "../Cards";
 
-import Cards from '../Cards'
+import Link from "next/link";
 
-import Link from 'next/link'
+import LoadingSkeleton from "../LoadingSkeleton";
 
-import LoadingSkeleton from '../LoadingSkeleton'
-
-
-function Trending({data,loading}:{data:any,loading:boolean}) {
-
-
-
-
-
-
-
-
+function Trending({ data, loading }: { data: any; loading: boolean }) {
   return (
     <div className="trending  mt-6 mx-5 text-white">
-
-
-      
-          <h1 className="text-xl font-semibold " >Trending</h1>
-        
-
-
- 
+      <h1 className="text-xl font-semibold ">Trending</h1>
 
       <div className="overflow-y-scroll no-scrollbar flex gap-6">
-
-        {loading && <LoadingSkeleton cards={20} />}
+        {/* {loading && <LoadingSkeleton cards={20} />} */}
 
         {data?.map((trending: any) => (
-          <Link href={`/${trending.media_type}/${trending.id}`} key={trending.id}>
-
-
+          <Link
+            href={`/${trending.media_type}/${trending.id}`}
+            key={trending.id}
+          >
             <Cards
-
               id={trending.id}
               name={trending.name}
               poster_path={trending.poster_path}
@@ -48,12 +30,9 @@ function Trending({data,loading}:{data:any,loading:boolean}) {
             />
           </Link>
         ))}
-
-
       </div>
-
     </div>
-  )
+  );
 }
 
-export default Trending
+export default Trending;

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/tabs": "^2.0.32",
     "axios": "^1.6.8",
     "format-duration": "^3.0.2",
     "next": "14.2.2",
