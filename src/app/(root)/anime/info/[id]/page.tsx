@@ -2,12 +2,12 @@ import Link from "next/link";
 import Error from "@/components/Error";
 import InfoPage from "@/components/animepages/info/InfoPage";
 
-const apiUrl = process.env.NEXT_PUBLIC_SITEURL || 'http://localhost:3000';
+const apiUrl = process.env.NEXT_PUBLIC_SITEURL
 
 
 async function getAnimeInfo(params: string) {
   const animeInfoData = await fetch(
-    `${apiUrl}/api/anime/info/${params}`
+    `${apiUrl}api/anime/info/${params}`
   );
   const animeInfo = await animeInfoData.json();
 
