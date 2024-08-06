@@ -39,8 +39,8 @@ const CarouselSection = ({
       }
       if (slides[slideIndex.current]) {
         slides[slideIndex.current].style.display = "flex";
-      }
     }
+  }
   }
 
   function startSlideShow() {
