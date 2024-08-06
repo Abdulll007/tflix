@@ -2,11 +2,9 @@
 
 import Cards from "../Cards";
 
-import Link from "next/link";
 
-import LoadingSkeleton from "../Loading";
 
-function Trending({ data, loading }: { data: any; loading: boolean }) {
+function Trending({ data}: { data: any;}) {
   return (
     <div className="trending  mt-6 mx-5 text-white">
       <h1 className="text-xl font-semibold ">Trending</h1>

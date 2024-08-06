@@ -1,7 +1,6 @@
 import React from "react";
 import Cards from "../Cards";
-import Link from "next/link";
-import LoadingSkeleton from "../Loading";
+
 import useFetchData from "@/helper/FetchHook";
 
 function TopRated() {

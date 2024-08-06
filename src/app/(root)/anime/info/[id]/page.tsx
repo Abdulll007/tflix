@@ -13,7 +13,7 @@ import { IoPlayCircleOutline } from "react-icons/io5";
 import Recommendation from "@/components/sections/Recommendation";
 import Error from "@/components/Error";
 import InfoPage from "@/components/animepages/info/InfoPage";
-import Loading from "@/components/Loading";
+
 
 async function getAnimeInfo(params: string) {
   const animeInfoData = await fetch(
@@ -28,7 +28,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   const { animeInfo } = await getAnimeInfo(params.id);
 
-  // console.log(animeInfo)
+
   if (!animeInfo.image ) {
     return (
       <Error>

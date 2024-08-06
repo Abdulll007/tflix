@@ -4,12 +4,12 @@ import Plyr, { APITypes, PlyrProps, PlyrInstance } from "plyr-react";
 import "plyr-react/plyr.css";
 
 const VideoPlayer = ({
-  customeStyles,
+
   source,
   type,
 
 }: {
-  customeStyles?: string;
+
   source: string;
   type?: string;
   

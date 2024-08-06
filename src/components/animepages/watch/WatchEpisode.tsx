@@ -5,7 +5,7 @@ import Error from "@/components/Error";
 import ReactPlayer from "react-player";
 import Link from "next/link";
 import Image from "next/image";
-import VideoPlayer from "@/components/VideoPlayer";
+
 
 const WatchEpisode = ({
   animeSource,
