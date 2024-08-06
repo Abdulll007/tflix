@@ -1,7 +1,7 @@
 import Loading from "@/components/Loading";
 import CarouselSection from "./CarouselSection";
 
-export async function getHomeData() {
+ async function getHomeData() {
   const [homeResponse, recentResponse] = await Promise.all([
     await fetch(`http://localhost:3000/api/anime/home`),
     await fetch(`http://localhost:3000/api/anime/recent`),

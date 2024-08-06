@@ -2,7 +2,7 @@
 import WatchEpisode from "@/components/animepages/watch/WatchEpisode";
 
 
-export async function getWatchEpisodeData(params: string) {
+async function getWatchEpisodeData(params: string) {
   const [animeInfo, serverData] = await Promise.all([
     await fetch(
       `http://localhost:3000/api/anime/info/${params.split("-episode-")[0]}`
