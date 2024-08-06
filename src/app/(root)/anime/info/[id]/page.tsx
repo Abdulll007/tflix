@@ -4,7 +4,7 @@ import InfoPage from "@/components/animepages/info/InfoPage";
 
 async function getAnimeInfo(params: string) {
   const animeInfoData = await fetch(
-    `http://localhost:3000/api/anime/info/${params}`
+    `${process.env.NEXT_PUBLIC_SITEURL}/api/anime/info/${params}`
   );
   const animeInfo = await animeInfoData.json();
 

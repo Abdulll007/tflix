@@ -5,9 +5,9 @@ import WatchEpisode from "@/components/animepages/watch/WatchEpisode";
 async function getWatchEpisodeData(params: string) {
   const [animeInfo, serverData] = await Promise.all([
     await fetch(
-      `http://localhost:3000/api/anime/info/${params.split("-episode-")[0]}`
+      `${process.env.NEXT_PUBLIC_SITEURL}/api/anime/info/${params.split("-episode-")[0]}`
     ),
-    await fetch(`http://localhost:3000/api/anime/watch/${params}`),
+    await fetch(`${process.env.NEXT_PUBLIC_SITEURL}/api/anime/watch/${params}`),
   ]);
 
   const animeSource = await serverData.json();
