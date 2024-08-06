@@ -26,7 +26,7 @@ const page = () => {
       <BannerImg data={data} loading={loading} />
 
       <div className="mx-2 sm:mx-20 lg:mx-32 ">
-        <Trending data={data} loading={loading} />
+        <Trending data={data} />
         <Upcoming />
         <MostPopular />
         <TopRated />
