@@ -7,7 +7,7 @@ const apiUrl = process.env.NEXT_PUBLIC_SITEURL
 
 async function getAnimeInfo(params: string) {
   const animeInfoData = await fetch(
-    `${apiUrl}api/anime/info/${params}`
+    `/api/anime/info/${params}`
   );
   const animeInfo = await animeInfoData.json();
 

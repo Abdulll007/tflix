@@ -6,9 +6,9 @@ const apiUrl = process.env.NEXT_PUBLIC_SITEURL
 async function getWatchEpisodeData(params: string) {
   const [animeInfo, serverData] = await Promise.all([
     await fetch(
-      `${apiUrl}api/anime/info/${params.split("-episode-")[0]}`
+      `/api/anime/info/${params.split("-episode-")[0]}`
     ),
-    await fetch(`${apiUrl}/api/anime/watch/${params}`),
+    await fetch(`/api/anime/watch/${params}`),
   ]);
 
   const animeSource = await serverData.json();
