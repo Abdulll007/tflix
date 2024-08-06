@@ -1,10 +1,12 @@
 import Loading from "@/components/Loading";
 import CarouselSection from "./CarouselSection";
 
+const apiUrl = process.env.NEXT_PUBLIC_SITEURL || 'http://localhost:3000';
+
  async function getHomeData() {
   const [homeResponse, recentResponse] = await Promise.all([
-    await fetch(`${process.env.NEXT_PUBLIC_SITEURL}/api/anime/home`),
-    await fetch(`${process.env.NEXT_PUBLIC_SITEURL}/api/anime/recent`),
+    await fetch(`${apiUrl}/api/anime/home`),
+    await fetch(`${apiUrl}/api/anime/recent`),
   ]);
   const homedata = await homeResponse.json();
   const trending = homedata.data.results.anilistTrending;
