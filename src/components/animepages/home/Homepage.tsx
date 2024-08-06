@@ -1,7 +1,7 @@
 import Loading from "@/components/Loading";
 import CarouselSection from "./CarouselSection";
 
-const apiUrl = process.env.NEXT_PUBLIC_SITEURL || 'http://localhost:3000';
+const apiUrl = process.env.NEXT_PUBLIC_SITEURL || 'http://localhost:80';
 
  async function getHomeData() {
   const [homeResponse, recentResponse] = await Promise.all([
