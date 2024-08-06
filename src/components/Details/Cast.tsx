@@ -1,7 +1,7 @@
 import React from "react";
 import People from "../People";
 import Link from "next/link";
-import LoadingSkeleton from "../LoadingSkeleton";
+import LoadingSkeleton from "../Loading";
 
 function Cast({ loading, casts }: { loading: boolean; casts: any }) {
   return (

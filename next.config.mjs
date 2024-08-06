@@ -1,11 +1,33 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
-        domains: ["media.themoviedb.org","image.tmdb.org"],
-    },
-    // env:{
-    //     ACCESS_TOKEN:process.env.NEXT_PUBLIC_ACCESS_TOKEN
-    // }
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media.themoviedb.org",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "s4.anilist.co",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "gogocdn.net",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -24,6 +24,7 @@ export interface TabProp {
   >;
 }
 
+
 const TabSection = ({
   selectedTab,
   setSelectedTab,

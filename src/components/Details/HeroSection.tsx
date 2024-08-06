@@ -25,6 +25,8 @@ const runtimeConverter = (minutes: number) => {
   return finalmin;
 };
 
+
+
 const HeroSection = (data: HeroSectionProps) => {
   const votePercent = Math.ceil((data.vote_average * 100) / 10);
   return (

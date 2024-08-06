@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { options } from "@/helper/apiConfig";
 
-const useFetchData = (url: string) => {
+const useFetchData = (url: string,anime?:boolean) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>();
@@ -25,10 +25,38 @@ const useFetchData = (url: string) => {
         setLoading(false);
       } catch (error) {
         setError(error);
+        setLoading(false);
       }
     }
 
-    fetchData();
+    async function animeData() {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await axios.get(url);
+
+        if (response.data === undefined) {
+          setData(response.data);
+        } else {
+          setData(response.data);
+        }
+
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+    
+
+    if(anime){
+      animeData()
+    }else{
+      fetchData();
+    }
+    
+
+
   }, [url]);
 
   return [data, loading, error];

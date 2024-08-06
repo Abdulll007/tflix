@@ -4,7 +4,7 @@ import Cards from "../Cards";
 
 import Link from "next/link";
 
-import LoadingSkeleton from "../LoadingSkeleton";
+import LoadingSkeleton from "../Loading";
 
 function Trending({ data, loading }: { data: any; loading: boolean }) {
   return (
@@ -12,14 +12,10 @@ function Trending({ data, loading }: { data: any; loading: boolean }) {
       <h1 className="text-xl font-semibold ">Trending</h1>
 
       <div className="overflow-y-scroll no-scrollbar flex gap-6">
-        
-
         {data?.map((trending: any) => (
-          <Link
-            href={`/${trending.media_type}/${trending.id}`}
-            key={trending.id}
-          >
+          
             <Cards
+              key={trending.id}
               id={trending.id}
               name={trending.name}
               poster_path={trending.poster_path}
@@ -27,8 +23,9 @@ function Trending({ data, loading }: { data: any; loading: boolean }) {
               release_date={trending.release_date}
               first_air_date={trending.first_air_date}
               vote_average={trending.vote_average}
+              mediaType={trending.media_type}
             />
-          </Link>
+    
         ))}
       </div>
     </div>

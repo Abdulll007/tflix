@@ -1,14 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 
 import DocumentTitle from "@/components/DocumentTitile";
 
-import Recommendation from "@/components/sections/Recommendation";
+
 import useFetchData from "@/helper/FetchHook";
 
 import HeroSection from "@/components/Details/HeroSection";
 import TabSection from "@/components/Details/TabSection";
 import Player from "@/components/Player";
+import Loading from "@/components/Loading";
+const Recommendation = lazy(
+  () => import("@/components/sections/Recommendation")
+);
 
 function page({ params }: any) {
   const [data, loading] = useFetchData(
@@ -41,11 +45,11 @@ function page({ params }: any) {
       : "Loading..."
   );
 
+
+
   if (loading) {
     return (
-      <main className=" relative ">
-        <div className="z-10 fixed top-0 left-0 bottom-0 right-0 bg-[#1f1f1f] ease-in-out"></div>
-      </main>
+      <Loading/>
     );
   }
 
@@ -74,7 +78,9 @@ function page({ params }: any) {
           setPlayerValue={setPlayerValue}
         />
 
-        <Recommendation recommendations={data?.recommendations?.results} />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Recommendation id={params.serialId} mediaType={"tv"} />
+        </Suspense>
       </div>
 
       {player && (

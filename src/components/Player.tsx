@@ -44,9 +44,11 @@ function Player({
         return `https://www.youtube.com/embed/${videokey}?autoplay=1`;
       }
       if (mediaType === "movie") {
-        return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`;
+        // return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`;
+        return`${process.env.NEXT_PUBLIC_MOVIE_URI}/${id}`
       } else {
-        return `${process.env.NEXT_PUBLIC_TV_URI}${id}&season=${season}&episode=${episode}`;
+        // return `${process.env.NEXT_PUBLIC_TV_URI}${id}&season=${season}&episode=${episode}`;
+        return `${process.env.NEXT_PUBLIC_TV_URI}/${id}/${season}/${episode}`
       }
     } else {
       if (mediaType === "movie") {
@@ -77,7 +79,7 @@ function Player({
     <div className="fixed top-0 left-0 bottom-0 right-0 z-10 bg-black flex items-center justify-center lg:px-20 xl:px-40 ">
       <div className="relative m-auto w-full">
         <div
-          className="relative aspect-video "
+          className="relative h-full aspect-video "
           style={{ width: "100%", height: iframeHeight }}
         >
           <iframe

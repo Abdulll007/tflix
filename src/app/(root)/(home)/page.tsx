@@ -1,6 +1,9 @@
 "use client";
+import React from "react";
 
 import DocumentTitle from "@/components/DocumentTitile";
+import Loading from "@/components/Loading";
+
 import BannerImg from "@/components/sections/BannerImg";
 import MostPopular from "@/components/sections/MostPopular";
 import TopRated from "@/components/sections/TopRated";
@@ -8,13 +11,16 @@ import Trending from "@/components/sections/Trending";
 import Upcoming from "@/components/sections/Upcoming";
 import useFetchData from "@/helper/FetchHook";
 
-export default function Home() {
+const page = () => {
   const [data, loading, error] = useFetchData(
     "https://api.themoviedb.org/3/trending/all/day"
   );
 
   DocumentTitle("TFLIX");
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <main className="flex h-full flex-col">
       <BannerImg data={data} loading={loading} />
@@ -27,4 +33,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default page;

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface People {
@@ -14,16 +15,20 @@ function People({ profile_path, name, characters, role, id }: People) {
       className="w-40 h-full text-white  flex  flex-col   rounded-md "
       key={id}
     >
-      <div className=" relative pb-[150.27%] bg-[#151515]">
+      <div className=" relative pb-[150.27%] bg-[#151515] rounded-md">
         {profile_path ? (
-          <img
+          <Image
             className=" w-full h-full absolute top-0 left-0 rounded-md object-fit "
             src={`${process.env.NEXT_PUBLIC_IMAGE_URI + "/" + profile_path}`}
             alt="profile"
+            width={160}
+            height={240}
+            
           />
         ) : (
           <div className=" absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 w-20 ">
-            <img src="/noposter.svg" alt="" />
+            <Image src="/noposter.svg" alt="" width={160}
+            height={240} />
           </div>
         )}
       </div>

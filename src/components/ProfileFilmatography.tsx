@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 function ProfileFilmatography({ media }: { media: any }) {
@@ -6,17 +7,21 @@ function ProfileFilmatography({ media }: { media: any }) {
   const tvDate = media.first_air_date && media.first_air_date?.substring(0, 4);
   return (
     <div className="flex flex-col justify-center items-center my-8 gap-2 ">
-      <div className="">
-        <img
+      <div className="w-full">
+        {media.backdrop_path && 
+        <Image
           src={
             media.backdrop_path
               ? `${process.env.NEXT_PUBLIC_IMAGE_URI}${media.backdrop_path}`
-              : "/poster.png"
+              : "/noposter.svg"
           }
           alt=""
-          width={500}
-          className="rounded-lg"
-        />
+          // fill
+          width={580}
+          height={280}
+       
+          className=" m-auto rounded-md object-fit "
+        />}
       </div>
 
       <div className="">
