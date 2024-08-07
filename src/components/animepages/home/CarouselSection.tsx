@@ -21,7 +21,7 @@ const CarouselSection = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function showSlides(n: number) {
-    if (typeof document !== "undefined") {
+    
       const slides = document.getElementsByClassName(
         "carousel"
       ) as HTMLCollectionOf<HTMLElement>;
@@ -39,8 +39,8 @@ const CarouselSection = ({
       }
       if (slides[slideIndex.current]) {
         slides[slideIndex.current].style.display = "flex";
+    
     }
-  }
   }
 
   function startSlideShow() {
@@ -60,12 +60,10 @@ const CarouselSection = ({
     startSlideShow();
     return () => stopSlideShow();
   }, []);
-
+  
+ 
   showSlides(slideIndex.current); // Ensure only the first slide is shown initially
 
-  if (!anime.trending) {
-    return <Loading />;
-  }
 
   return (
     <div>
