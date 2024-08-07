@@ -2,7 +2,7 @@ import Link from "next/link";
 import Error from "@/components/Error";
 import InfoPage from "@/components/animepages/info/InfoPage";
 
-const apiUrl = process.env.NEXT_PUBLIC_SITEURL
+// const apiUrl = process.env.NEXT_PUBLIC_SITEURL
 
 
 async function getAnimeInfo(params: string) {
