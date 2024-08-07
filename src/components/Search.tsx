@@ -1,26 +1,22 @@
 import { options } from "@/helper/apiConfig";
 import axios from "axios";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import React, { useRef, useState, useEffect, memo } from "react";
 import { IoSearch } from "react-icons/io5";
-import Loading from "./Loading";
+
 // import { searchData } from "./test";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import useWindowSize from "@/helper/windowSize";
 
 const Search = () => {
-  
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [data, setData] = useState<any[]>([]);
   const [searchResult, setSearchResult] = useState("");
-
   const pathname = usePathname();
-
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [showSearchResult, setShowSearchResult] = useState(false);
 
   const fetchingData = async () => {
     try {
@@ -43,16 +39,21 @@ const Search = () => {
     const searchRequest = setTimeout(() => {
       if (searchResult.length > 0) {
         fetchingData();
-        inputRef.current?.blur()
+        inputRef.current?.blur();
+        if (!toggleSearch) {
+          setToggleSearch(true);
+        }
       }
     }, 1000);
 
     return () => clearTimeout(searchRequest);
   }, [searchResult]);
 
-
   const handleChange = (event: any) => {
     setSearchResult(event?.target.value);
+    if (data.length > 0) {
+      setShowSearchResult(true);
+    }
   };
 
   const linkHandler = () => {
@@ -64,31 +65,32 @@ const Search = () => {
   useEffect(() => {
     setSearchResult("");
     setData([]);
-   
-    setToggleSearch(false)
-    
+
+    setToggleSearch(false);
   }, [pathname]);
 
   return (
     <div className="">
       <div className=" flex justify-center items-center rounded-full w-full sm:w-full bg-[#323232] ">
         <input
-          className={`border-none absolute left-0 right-0 -bottom-12 bg-white sm:static outline-none sm:text-lg sm:rounded-l-md p-3  sm:px-2 sm:py-0 w-full ${
+          className={`border-none absolute left-0 right-0 -bottom-12 bg-white sm:bg-transparent sm:static outline-none sm:text-lg sm:rounded-l-md p-3  sm:px-2 sm:py-0 w-full ${
             !toggleSearch && "hidden"
-          } sm:block sm:bg-transparent sm:text-white `}
+          } sm:block sm:{} sm:bg-transparent sm:text-white `}
           ref={inputRef}
           value={searchResult}
           name="search"
           onChange={handleChange}
           // onKeyDown={(e) => e.code === "Enter" && fetchingData()}
           placeholder="Search..."
-         
           type="text "
         />
 
         <div className="p-1 ">
           <IoSearch
-            onClick={() => setToggleSearch(!toggleSearch)}
+            onClick={() => {
+              setToggleSearch(!toggleSearch);
+              setData([]);
+            }}
             size={23}
             color="white"
             className=""
@@ -96,9 +98,11 @@ const Search = () => {
         </div>
       </div>
 
-      {(data.length > 0 )&& (
+      {(showSearchResult || toggleSearch) && (
         <div
-          className={`absolute top-[6.5rem] sm:top-[54px] rounded-b-md  bg-[#1e1e1e] w-full sm:max-w-96 ${data.length > 0 ? "block" :"hidden"} right-0 text-white z-[2]`}
+          className={`absolute top-[6.5rem] sm:top-[54px] rounded-b-md  bg-[#1e1e1e] w-full sm:max-w-96 ${
+            data.length > 0 ? "block" : "hidden"
+          } right-0 text-white z-[2]`}
         >
           <div className="text-center text-xl font-semibold">
             <h1 className="">Search Results</h1>
