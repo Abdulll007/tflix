@@ -26,7 +26,9 @@ async function getHomeData() {
 
 const Homepage = async () => {
   const anime = await getHomeData().then((data) => data);
-  if (!anime.trending) {
+
+
+  if (typeof window === undefined && !anime) {
     return <Loading />;
   }
 
