@@ -3,10 +3,10 @@ import CarouselSection from "./CarouselSection";
 
 
 async function getHomeData() {
-  const apiUrl = process.env.NEXT_PUBLIC_SITEURL || 'http://127.0.0.1:80';
+  const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL
 
-  const homeurl = `/api/anime/home`;
-  const recenturl = `/api/anime/recent`;
+  const homeurl = `${apiUrl}/api/anime/home`;
+  const recenturl = `${apiUrl}/api/anime/recent`;
 
 
   const [homeResponse, recentResponse] = await Promise.all([
