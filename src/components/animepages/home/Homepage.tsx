@@ -1,5 +1,7 @@
-import Loading from "@/components/Loading";
-import CarouselSection from "./CarouselSection";
+// import Loading from "@/components/Loading";
+import dynamic from "next/dynamic";
+const CarouselSection = dynamic (()=>import("@/components/animepages/home/CarouselSection"),{ ssr: false });
+
 
 
 async function getHomeData() {
@@ -28,9 +30,9 @@ const Homepage = async () => {
   const anime = await getHomeData().then((data) => data);
 
 
-  if (typeof window === undefined && !anime) {
-    return <Loading />;
-  }
+  // if (typeof document === undefined && anime) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="">

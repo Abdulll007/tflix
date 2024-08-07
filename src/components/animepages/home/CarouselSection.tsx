@@ -20,7 +20,7 @@ const CarouselSection = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function showSlides(n: number) {
-    if (typeof window !== undefined) {
+    if (typeof document !== undefined) {
       const slides = document.getElementsByClassName(
         "carousel"
       ) as HTMLCollectionOf<HTMLElement>;
@@ -56,11 +56,15 @@ const CarouselSection = ({
   }
 
   useEffect(() => {
+    
     startSlideShow();
     return () => stopSlideShow();
   }, []);
 
-  showSlides(slideIndex.current); // Ensure only the first slide is shown
+  // if (typeof document !== undefined && anime) {
+    // }
+    showSlides(slideIndex.current);
+   // Ensure only the first slide is shown
 
   return (
     <div>
