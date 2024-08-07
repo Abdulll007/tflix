@@ -20,23 +20,25 @@ const CarouselSection = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function showSlides(n: number) {
-    const slides = document.getElementsByClassName(
-      "carousel"
-    ) as HTMLCollectionOf<HTMLElement>;
+    if (typeof window !== undefined) {
+      const slides = document.getElementsByClassName(
+        "carousel"
+      ) as HTMLCollectionOf<HTMLElement>;
 
-    if (n >= slides.length) {
-      slideIndex.current = 0;
-    } else if (n < 0) {
-      slideIndex.current = slides.length - 1;
-    } else {
-      slideIndex.current = n;
-    }
+      if (n >= slides.length) {
+        slideIndex.current = 0;
+      } else if (n < 0) {
+        slideIndex.current = slides.length - 1;
+      } else {
+        slideIndex.current = n;
+      }
 
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-    if (slides[slideIndex.current]) {
-      slides[slideIndex.current].style.display = "flex";
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      if (slides[slideIndex.current]) {
+        slides[slideIndex.current].style.display = "flex";
+      }
     }
   }
 
@@ -53,16 +55,12 @@ const CarouselSection = ({
     }
   }
 
-
-  
   useEffect(() => {
-    
     startSlideShow();
     return () => stopSlideShow();
   }, []);
-  
-  
-  showSlides(slideIndex.current); // Ensure only the first slide is shown 
+
+  showSlides(slideIndex.current); // Ensure only the first slide is shown
 
   return (
     <div>
