@@ -59,7 +59,7 @@ function Page() {
   return (
     <div className="flex flex-col items-center">
       <div className="flex  flex-col sm:flex-row  text-white gap-5">
-        <aside className=" flex justify-center flex-wrap gap-4 sm:flex-col sm:self-start mx-8 sm:mx-0 sm:ml-4">
+        <aside className="sticky sm:top-20 flex justify-center flex-wrap gap-4 sm:flex-col sm:self-start mx-8 sm:mx-0 sm:ml-4">
           <GenreSection
             Genres={tvGenres}
             addGenres={addGenres}
@@ -67,7 +67,7 @@ function Page() {
           />
         </aside>
 
-        <div className="md:w-[80vw] lg:w-[85vw] xl:w-[85vw] flex flex-wrap  justify-center md:gap-6 gap-4 text-white h-screen overflow-scroll no-scrollbar ">
+        <div className="md:w-[80vw] lg:w-[85vw] xl:w-[85vw] flex flex-wrap  justify-center md:gap-6 gap-4 text-whit overflow-scroll no-scrollbar ">
           {tvShows?.map((shows, index) => (
             <Cards
               id={shows?.id}
