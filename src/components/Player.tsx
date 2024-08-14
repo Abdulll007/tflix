@@ -44,11 +44,11 @@ function Player({
         return `https://www.youtube.com/embed/${videokey}?autoplay=1`;
       }
       if (mediaType === "movie") {
-        // return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`;
-        return`${process.env.NEXT_PUBLIC_MOVIE_URI}/${id}`
+        return `${process.env.NEXT_PUBLIC_MOVIE_URI}${id}`;
+        // return`${process.env.NEXT_PUBLIC_MOVIE_URI}/${id}`
       } else {
-        // return `${process.env.NEXT_PUBLIC_TV_URI}${id}&season=${season}&episode=${episode}`;
-        return `${process.env.NEXT_PUBLIC_TV_URI}/${id}/${season}/${episode}`
+        return `${process.env.NEXT_PUBLIC_TV_URI}${id}&season=${season}&episode=${episode}`;
+        // return `${process.env.NEXT_PUBLIC_TV_URI}/${id}/${season}/${episode}`
       }
     } else {
       if (mediaType === "movie") {
