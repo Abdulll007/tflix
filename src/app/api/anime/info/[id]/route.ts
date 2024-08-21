@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_ANIME_API}/anime/${params.id}`
+      `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/info?id=${params.id}`
     );
     return NextResponse.json({ data, success: true }, { status: 200 });
   } catch (error) {

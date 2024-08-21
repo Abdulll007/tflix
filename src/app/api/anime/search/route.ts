@@ -6,12 +6,14 @@ export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const searchParam = new URLSearchParams(url.searchParams);
-    const value = searchParam.get("search");
+    const search = searchParam.get("search");
+    const page = searchParam.get("page");
+    
 
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_ANIME_API}/search/${value}`
+      `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/search?q=${search}${page?`&page=${page}`:""}`
     );
-
+   
     return NextResponse.json({ data, success: true }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -20,3 +22,5 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+// q={query}&genres={genres}&type={type}&sort={sort}&season={season}&language={sub_or_dub}&status={status}&rated={rating}&start_date={yyyy-mm-dd}&end_date={yyyy-mm-dd}&score={score}
