@@ -14,7 +14,7 @@ const VideoPlayer = ({
   outroStart,
   outroEnd,
   captionSrc,
-  autoSkip = true,
+  autoSkip
 }: {
   source: string;
   introStart: number;

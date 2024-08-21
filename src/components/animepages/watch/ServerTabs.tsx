@@ -29,7 +29,7 @@ const ServerTabs = ({
 
   const [playerOptions, setPlayerOptions] = useState({
     light: false,
-    autoSkip: false,
+    autoSkip: true,
   });
 
   
@@ -123,7 +123,7 @@ const ServerTabs = ({
               
              Auto Skip
               <span className="hover:text-white text-[#686868]">
-                {playerOptions.autoSkip ? "On" : "Off"}
+                {playerOptions.autoSkip ? "Off" : "On"}
               </span>
             </span>
           </div>
