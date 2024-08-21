@@ -5,10 +5,10 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 export interface CardData {
-  animeID?: string;
-  id?: number;
-  poster_path: string;
-  title: string;
+  
+  id?: number | null;
+  poster_path: string | null;
+  title: string | undefined;
   name?: string;
   release_date?: string;
   first_air_date?: string;
@@ -19,7 +19,7 @@ export interface CardData {
 
 const Cards = memo(
   ({
-    animeID,
+   
     id,
     poster_path,
     title,
@@ -31,78 +31,70 @@ const Cards = memo(
     episode,
   }: CardData) => {
     const votePercent = Math.ceil(
-      ((vote_average ? vote_average : 777) * 100) / 10
+      ((vote_average ? vote_average : 0) * 100) / 10
     );
 
     return (
       <Link
         href={
-          mediaType === "anime"
-            ? id
-              ? { pathname: `${mediaType}${animeID}`, query: `id=${id}` }
-              : { pathname: `${mediaType}${animeID}` }
-            : `/${mediaType}/${id}`
+          `/${mediaType}/${id}`
         }
         scroll={false}
         className="flex flex-col "
       >
         <div className="my-2 relative text-center w-full ">
           <div className="rounded-md relative pb-[150.67%] w-36 sm:w-44 bg-[#151515] backdropgradientsm after:rounded-md">
-            {poster_path && (
+            {poster_path ? (
               <Image
                 className={`rounded-md  absolute top-0 left-0 bottom-0 right-0 object-cover`}
                 src={`${
-                  mediaType === "anime"
-                    ? poster_path
-                    : process.env.NEXT_PUBLIC_IMAGE_URI + poster_path
+                  process.env.NEXT_PUBLIC_IMAGE_URI + poster_path
                 }`}
                 fill
                 sizes="(max-width:480px)"
                 alt=""
                 loading="lazy"
               />
-            )}
-            {mediaType === "anime" && (
-              <div className=" absolute bottom-1 flex w-full justify-between z-[2] text-gray-400">
-                <div className=" bottom-0 px-1">
-                  {title.toLowerCase().includes("dub") ? "DUB" : "SUB"}
-                </div>
+            ):(<div className=" absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 w-20 ">
+              <Image src="/noposter.svg" alt="" width={160}
+              height={240} />
+            </div>)}
 
-                <div className="  bottom-0 right-0 px-1">
-                  {episode?.replace("Episode", "#")}
-                </div>
+            <div className=" absolute bottom-1 flex w-full justify-between z-[2] text-gray-400">
+              <div className=" bottom-0 px-1">{""}</div>
+
+              <div className="  bottom-0 right-0 px-1">
+                {episode?.replace("Episode", "#")}
               </div>
-            )}
+            </div>
           </div>
 
-          {mediaType !== "anime" && (
-            <div
-              style={{
-                width: 40,
-                position: "absolute",
-                bottom: -20,
-                left: 10,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <CircularProgressbar
-                className=""
-                value={votePercent}
-                minValue={0}
-                maxValue={100}
-                text={`${votePercent > 0 ? votePercent + "%" : "NR"}`}
-                background={true}
-                styles={buildStyles({
-                  textSize: "2rem",
-
-                  textColor: "white",
-                  backgroundColor: "#222831",
-                })}
-              />
-            </div>
-          )}
+          <div
+            style={{
+              width: 40,
+              position: "absolute",
+              bottom: -20,
+              left: 10,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgressbar
+              
+              value={votePercent}
+              minValue={0}
+              maxValue={100}
+              text={`${votePercent > 0 ? votePercent + "%" : "NR"}`}
+              background={true}
+              styles={buildStyles({
+                textSize: "2rem",
+            
+                textColor: "white",
+                backgroundColor: "#222831",
+              })}
+            />
+          </div>
         </div>
 
         <div className="mt-6 flex-1">

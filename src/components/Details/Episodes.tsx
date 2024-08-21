@@ -99,7 +99,7 @@ const Episodes = ({
       </div>
 
       <div
-        className="flex flex-col  sm:flex-row sm:overflow-scroll sm:no-scrollbar "
+        className="flex flex-col  sm:flex-row sm:overflow-scroll sm:no-scrollbar gap-5"
         ref={episodesContainerRef}
       >
         {tvEpisodes.length > 0 ? (
@@ -119,10 +119,10 @@ const Episodes = ({
 
                 setPlayer && setPlayer(!player);
               }}
-              className="px-2 flex flex-col mb-5 sm:mb-0"
+              className="px-2 mb-5 sm:mb-0 sm:w-60 lg:w-96 "
               key={episode?.episode_number}
             >
-              <div className=" relative pb-[56.25%] mb-8 sm:w-60 lg:w-96 bg-[#151515] rounded-lg ">
+              <div className=" relative pb-[56.25%] mb-8 sm:w-60 lg:w-96 bg-[#151515] rounded-lg w-full">
                 {episode.still_path ? (
                   <img
                     className=" h-full w-full absolute top-0 left-0 rounded-lg"

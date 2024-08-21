@@ -1,43 +1,95 @@
-// import Loading from "@/components/Loading";
 import dynamic from "next/dynamic";
-const CarouselSection = dynamic (()=>import("@/components/animepages/home/CarouselSection"),{ ssr: false });
+import TopTen from "@/components/animepages/home/TopTen";
+const Schedule = dynamic(
+  () => import("@/components/animepages/home/Schedule"),
+  { ssr: false }
+);
 
+import AnimeGenres from "@/components/animepages/animecomponents/AnimeGenres";
+import AnimeCarousel from "../animecomponents/AnimeCarousel";
 
+const CarouselSection = dynamic(
+  () => import("@/components/animepages/home/CarouselSection"),
+  { ssr: false }
+);
 
-async function getHomeData() {
-  const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-
+const getHomeData = async () => {
+  const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
   const homeurl = `${apiUrl}/api/anime/home`;
-  const recenturl = `${apiUrl}/api/anime/recent`;
 
+  const response = await fetch(homeurl);
 
-  const [homeResponse, recentResponse] = await Promise.all([
-    await fetch(homeurl),
-    await fetch(recenturl),
-  ]);
-  const homedata = await homeResponse.json();
-  const trending = homedata.data.results.anilistTrending;
+  const homedata = await response.json();
+  const spotlightAnime = homedata.data.spotlightAnimes;
+  const trendingAnime = homedata.data.trendingAnimes;
+  const topTen = homedata.data.top10Animes;
+  const latestEpisodes = homedata.data.latestEpisodeAnimes;
+  const mostPopular = homedata.mostPopularAnimes;
+  const topAiring = homedata.data.topAiringAnimes;
+  const topUpcommig = homedata.data.topUpcomingAnimes;
 
-  const popular = homedata.data.results.gogoPopular;
-
-  const recentdata = await recentResponse.json();
-  const recent = recentdata.data.results;
-
-  return { trending, popular, recent };
-}
+  return {
+    spotlightAnime,
+    trendingAnime,
+    topTen,
+    latestEpisodes,
+    mostPopular,
+    topAiring,
+    topUpcommig,
+  };
+};
 
 const Homepage = async () => {
-  const anime = await getHomeData().then((data) => data);
-
-
-  // if (typeof document === undefined && anime) {
-  //   return <Loading />;
-  // }
+  const {
+    spotlightAnime,
+    trendingAnime,
+    topTen,
+    latestEpisodes,
+    mostPopular,
+    topAiring,
+    topUpcommig,
+  } = await getHomeData();
 
   return (
-    <div className="">
-      <CarouselSection anime={anime} />
-    </div>
+    <>
+      <CarouselSection spotlightAnime={spotlightAnime} />
+
+      <section className="mx-4 md:mx-10 ">
+        <div className="xl:flex  gap-8 ">
+          <div className="xl:w-[70%]">
+            <AnimeCarousel
+              carouselTitle="Most Trending"
+              animeInfo={trendingAnime}
+              path="/anime/info"
+            />
+
+            <AnimeCarousel
+              carouselTitle="Added Episodes"
+              animeInfo={latestEpisodes}
+              path="/anime/watch"
+            />
+
+            <AnimeCarousel
+              carouselTitle="Top Airing"
+              animeInfo={topAiring}
+              path="/anime/watch"
+            />
+
+            <AnimeCarousel
+              carouselTitle="Top Upcoming"
+              animeInfo={topUpcommig}
+              path="/anime/watch"
+            />
+
+            <Schedule />
+          </div>
+          <section className="flex flex-col text-white">
+            <TopTen topten={topTen} />
+            <AnimeGenres />
+          </section>
+        </div>
+      </section>
+    </>
   );
 };
 

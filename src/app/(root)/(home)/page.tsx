@@ -22,7 +22,7 @@ const page = () => {
     return <Loading />;
   }
   return (
-    <main className="flex h-full flex-col">
+    <div className="flex h-full flex-col">
       <BannerImg data={data} loading={loading} />
 
       <div className="mx-2 sm:mx-20 lg:mx-32 ">
@@ -31,7 +31,7 @@ const page = () => {
         <MostPopular />
         <TopRated />
       </div>
-    </main>
+    </div>
   );
 };
 

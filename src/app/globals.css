@@ -5,7 +5,7 @@
 
 body {
     /* background-color: #31363F */
-    background-color: #1e1e1e
+    background-color: #000000
 }
 
 
@@ -24,16 +24,14 @@ body {
         /* Firefox */
     }
 
-    .playerblur {
-        backdrop-filter: blur(10px) contrast(60%) brightness(.5);
+    /* .bg-blur {
+        backdrop-filter: blur(20px) contrast(60%) brightness(40%);
         
-        -webkit-backdrop-filter: blur(10px) contrast(60%);
-        /* width: contain; */
+        -webkit-backdrop-filter: blur(20px) contrast(60%) brightness(40%);
         
-    
+     
         
-        /* padding: 0.3rem; */
-    }
+    } */
     
 
     .backdropgradientlg::after{
@@ -64,7 +62,7 @@ body {
         left: 0;
         bottom: 0;
         right: 0;
-        background-image: linear-gradient(0deg, #1e1e1e 0, rgba(0, 0, 0, .1) 50%, rgba(89, 89, 89, 0.1))
+        background-image: linear-gradient(0deg, #000 0, rgba(0, 0, 0, .1) 50%, rgba(89, 89, 89, 0.1))
 
     }
 
@@ -86,18 +84,20 @@ body {
        scroll-behavior: smooth;
       }
     
-      .scrollbar::-webkit-scrollbar-track {
-        
-        background: #1e1e1e;
-      }
+    .scrollbar::-webkit-scrollbar-track {
     
-      .scrollbar::-webkit-scrollbar-thumb {
-        background: #e0cbcb;
-        
-        border: 3px solid #f6f7ed;
-      }
+    background: #1e1e1e;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+    background: #e0cbcb;
     
-      .scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #c0a0b9;
-      }
+    border: 3px solid #f6f7ed;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+    }
+
+    
 }

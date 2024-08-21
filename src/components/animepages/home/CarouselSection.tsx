@@ -1,21 +1,31 @@
 "use client";
-import Cards from "@/components/Cards";
-import Loading from "@/components/Loading";
 
 import Image from "next/legacy/image";
+import Link from "next/link";
 
 import React, { useEffect, useRef } from "react";
-import { IoInformationCircle, IoPlayCircleSharp } from "react-icons/io5";
+import { IoInformationCircle, IoPlayCircleSharp, IoMic } from "react-icons/io5";
+import { FaClosedCaptioning } from "react-icons/fa";
 
 function cleanString(input: string) {
   return input?.replace(/<\/?[^>]+(>|$)|\(\s*Source:.*?\)/g, "");
 }
 
-const CarouselSection = ({
-  anime,
-}: {
-  anime: { trending: []; popular: []; recent: [] };
-}) => {
+interface SpotlightAnimeProp{
+  rank: number;
+  id: string;
+  name: string;
+  description: string;
+  poster: string;
+  jname: string;
+  episodes: {
+    sub: number;
+    dub: number | null;
+  };
+  otherInfo: string[];
+}
+
+const CarouselSection = ({ spotlightAnime }: { spotlightAnime: SpotlightAnimeProp[]}) => {
   const slideIndex = useRef(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -56,113 +66,82 @@ const CarouselSection = ({
   }
 
   useEffect(() => {
-    
     startSlideShow();
     return () => stopSlideShow();
   }, []);
 
   // if (typeof document !== undefined && anime) {
-    // }
-    showSlides(slideIndex.current);
-   // Ensure only the first slide is shown
+  // }
+  showSlides(slideIndex.current);
+  // Ensure only the first slide is shown
 
   return (
     <div>
-      {anime?.trending
-        ?.filter((data: any) => data.bannerImage !== null)
-        ?.map((data: any, index: number) => (
-          <div
-            className={`flex flex-col justify-between bg-black relative lg:block text-white carousel ${
-              index === 0 ? "flex" : "hidden"
-            }`}
-            key={data.id}
-          >
-            <div className="backdropgradientsm pb-[52.25%] md:pb-[36.25%] relative lg:pb-[33.26%] ">
-              <div className="w-full h-full md:backdropgradientlg absolute right-0">
-                {data.bannerImage && (
-                  <Image
-                    src={data?.bannerImage}
-                    alt={data.title.english}
-                    layout="fill"
-                    objectFit="cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="w-full h-full absolute "
-                    priority
-                  />
+      {spotlightAnime?.map((data: any, index: number) => (
+        <div
+          className={`flex flex-col justify-between bg-black relative lg:block text-white carousel ${
+            index === 0 ? "flex" : "hidden"
+          }`}
+          key={data.id}
+        >
+          <div className="backdropgradientsm pb-[52.25%] md:pb-[45.25%] relative lg:pb-[33.26%] ">
+            <div className="w-full h-full md:backdropgradientlg absolute md:w-[70%]   right-0">
+              {data.poster && (
+                <Image
+                  src={data?.poster}
+                  alt={data.name}
+                  layout="fill"
+                  objectFit="cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="w-full h-full absolute "
+                  priority
+                />
+              )}
+            </div>
+          </div>
+          <div className="bg-black md:absolute top-0 left-0 bottom-0 px-4 pb-4 md:py-20 md:px-10 md:w-[60%] lg:w-[50%] flex flex-col justify-center bg-transparent">
+            <h1 className="md:text-2xl font-semibold mb-2 lg:mb-3">
+              {cleanString(data.name)}
+            </h1>
+            <div className="md:flex flex-col text-sm text-slate-400 gap-2 hidden">
+              <div className="flex gap-4 ">
+                {data?.otherInfo.map((item: string) => (
+                  <p key={item}>{item}</p>
+                ))}
+              </div>
+              <div className="flex gap-6 ">
+                <div className="flex items-center gap-2  p-1">
+                  <FaClosedCaptioning size={20} />
+                  <p>{data.episodes.sub}</p>
+                </div>
+                {data.episodes.dub && (
+                  <div className="flex items-center gap-2 p-1">
+                    <IoMic size={20} />
+                    <p>{data.episodes.dub}</p>
+                  </div>
                 )}
               </div>
             </div>
-            <div className="bg-black md:absolute top-0 left-0 bottom-0 px-6 pb-6 sm:px-10 sm:pb-10 md:p-20 md:w-[50%] flex flex-col justify-center bg-transparent">
-              <h1 className="md:text-2xl font-semibold mb-2 lg:mb-3">
-                {cleanString(data.title.english)}
-              </h1>
-              <div className="lg:flex flex-col text-sm text-slate-400 gap-2 hidden">
-                <div className="flex gap-4">
-                  <h2>{data.format}</h2>
-                  <p>{data.status}</p>
-                </div>
-                <div className="flex gap-4">
-                  {data.genres.map((genre: any) => (
-                    <p className="rounded-md" key={genre}>
-                      {genre}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div className="hidden sm:inline-block mt-4">
-                <p className="overflow-hidden sm:line-clamp-2 lg:line-clamp-3">
-                  {cleanString(data.description)}
-                </p>
-              </div>
-              <div className="flex items-center gap-4 md:gap-8 mt-4">
-                <div className="bg-gray-700 rounded-md flex items-center px-3 py-1 gap-2">
-                  <IoPlayCircleSharp size={20} />
-                  Watch Now
-                </div>
-                <div className="border border-gray-400 rounded-md flex items-center px-3 py-1 gap-2">
-                  <IoInformationCircle size={20} /> Details
-                </div>
-              </div>
+            <div className="hidden md:inline-block mt-4">
+              <p className="overflow-hidden sm:line-clamp-2 lg:line-clamp-3">
+                {cleanString(data.description)}
+              </p>
+            </div>
+            <div className="flex items-center gap-4 md:gap-8 mt-4">
+              <Link href={`/anime/watch/${data.id}`} className="bg-gray-700 rounded-md flex items-center px-3 py-1 gap-2 text-nowrap">
+                <IoPlayCircleSharp size={20} />
+                Watch Now
+              </Link>
+              <Link
+                href={`/anime/info/${data.id}`}
+                className="border border-gray-400 rounded-md flex items-center px-3 py-1 gap-2"
+              >
+                <IoInformationCircle size={20} /> Details
+              </Link>
             </div>
           </div>
-        ))}
-
-      <section className="mx-4 md:mx-20 lg:mx-22 flex flex-col gap-8 p-6">
-        <div className="text-white">
-          <div className="text-2xl">
-            <h2>Most Trending</h2>
-          </div>
-          <div className="recent flex overflow-scroll no-scrollbar gap-4">
-            {anime.popular.map((data: any) => (
-              <Cards
-                animeID={`/info/${data.id}`}
-                poster_path={data.image}
-                mediaType="anime"
-                key={data.id}
-                title={data.title}
-              />
-            ))}
-          </div>
         </div>
-
-        <div className="text-white">
-          <div className="text-2xl">
-            <h2>Added Episodes</h2>
-          </div>
-          <div className="flex overflow-scroll no-scrollbar gap-4 text-white">
-            {anime.recent.map((data: any) => (
-              <Cards
-                animeID={`/watch/${data.id}`}
-                poster_path={data.image}
-                mediaType="anime"
-                key={data.id}
-                title={data.title}
-                episode={data.episode}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      ))}
     </div>
   );
 };

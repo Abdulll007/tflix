@@ -2,7 +2,7 @@
 
 import Cards from "../Cards";
 
-import Link from "next/link";
+
 import useFetchData from "@/helper/FetchHook";
 
 function MostPopular() {
