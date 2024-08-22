@@ -18,6 +18,7 @@ const ServerTabs = ({
   episodeSource: any;
   animeEpisodes: any;
   getEpisodeSrc: any;
+  
 }) => {
   const [selectedServer, setSelectedServer] = useState({
     serverType: providedServers?.sub ? "sub" : "dub",
@@ -29,7 +30,7 @@ const ServerTabs = ({
 
   const [playerOptions, setPlayerOptions] = useState({
     light: false,
-    autoSkip: true,
+    autoSkip: false,
   });
 
   
@@ -68,6 +69,7 @@ const ServerTabs = ({
     setAvailableServer(serverLists);
   };
 
+
   return (
     <div className="flex flex-1 flex-col-reverse lg:grid grid-cols-12 bg-black ">
       <div className="col-start-1 col-end-4 z-">
@@ -78,7 +80,7 @@ const ServerTabs = ({
       </div>
       <div className=" col-start-4 lg:col-end-13 my-auto">
         <div
-          className={`relative pb-[56.25%] col-start-4 lg:col-end-13   overflow-hidden rounded-md  ${
+          className={`relative mt-5 sm:mt-0 col-start-4 lg:col-end-13   overflow-hidden rounded-md  ${
             playerOptions.light ? "z-[12]":""
           }`}
         >
@@ -111,7 +113,7 @@ const ServerTabs = ({
               </span>
             </span>
           </div>
-          <div
+          {/* <div
             className="cursor-pointer text-sm hover:text-white"
             onClick={() =>
               setPlayerOptions((prev) => {
@@ -123,10 +125,10 @@ const ServerTabs = ({
               
              Auto Skip
               <span className="hover:text-white text-[#686868]">
-                {playerOptions.autoSkip ? "Off" : "On"}
+                {playerOptions.autoSkip ? "On" : "Off"}
               </span>
             </span>
-          </div>
+          </div> */}
         </div>
         <div className="m-10  ">
           <div className="flex flex-col md:flex-row gap-10 items-center">
