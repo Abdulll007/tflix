@@ -2,7 +2,7 @@
 
 import AnimeEpisode from "@/components/Details/AnimeEpisode";
 import VideoPlayer from "@/components/videocomponent/VideoPlayer";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "plyr-react/plyr.css";
 import { FaLightbulb } from "react-icons/fa";
 
@@ -18,7 +18,6 @@ const ServerTabs = ({
   episodeSource: any;
   animeEpisodes: any;
   getEpisodeSrc: any;
-  
 }) => {
   const [selectedServer, setSelectedServer] = useState({
     serverType: providedServers?.sub ? "sub" : "dub",
@@ -33,14 +32,28 @@ const ServerTabs = ({
     autoSkip: false,
   });
 
-  
-
   const [availableServer, setAvailableServer] = useState<any>();
 
   useEffect(() => {
     setServerData(episodeSource);
     setAvailableServer(providedServers);
   }, []);
+  useEffect(() => {
+    const serverType = localStorage.getItem("serverType");
+    if (serverType) {
+      setSelectedServer((prev) => {
+        return { ...prev, serverType: serverType };
+      });
+
+      document.cookie = `serverType=${serverType} ;secure httponly;`;
+    } else {
+      localStorage.setItem("serverType", "sub");
+      setSelectedServer((prev) => {
+        return { ...prev, serverType: "sub" };
+      });
+      document.cookie = `serverType=${"sub"} ;secure httponly;`;
+    }
+  }, [selectedServer?.serverType]);
 
   const fetchServerInfo = async (
     episodeId: string,
@@ -61,14 +74,31 @@ const ServerTabs = ({
     }
   };
 
-  const fetchEpisodeAndSource = async (episodeId: string) => {
-    const { serverLists, episodeSourceData } =
-      await getEpisodeServerListAndSource(episodeId, selectedServer.serverType);
+  const fetchEpisodeAndSource = useCallback(
+    async (episodeId: string) => {
+      window.history.pushState(
+        { page: `/anime/${episodeId}` },
+        "",
+        `/anime/watch/${episodeId}`
+      );
 
-    setServerData(episodeSourceData);
-    setAvailableServer(serverLists);
+      const { serverLists, episodeSourceData } =
+        await getEpisodeServerListAndSource(
+          episodeId,
+          selectedServer.serverType
+        );
+
+      setServerData(episodeSourceData);
+      setAvailableServer(serverLists);
+    },
+    [selectedServer.serverType]
+  );
+
+  const setServerType = (type: string) => {
+    localStorage.setItem("serverType", type);
+    console.log(type)
+    document.cookie = `serverType=${type}; secure; httponly;`;
   };
-
 
   return (
     <div className="flex flex-1 flex-col-reverse lg:grid grid-cols-12 bg-black ">
@@ -76,12 +106,13 @@ const ServerTabs = ({
         <AnimeEpisode
           episodes={animeEpisodes.episodes}
           getEpisodeServerList={fetchEpisodeAndSource}
+          selectedEpisodeFromServer={availableServer?.episodeNo}
         />
       </div>
       <div className=" col-start-4 lg:col-end-13 my-auto">
         <div
           className={`relative mt-5 sm:mt-0 col-start-4 lg:col-end-13   overflow-hidden rounded-md  ${
-            playerOptions.light ? "z-[12]":""
+            playerOptions.light ? "z-[12] lg:-translate-x-[17%]" : ""
           }`}
         >
           {serverData?.sources && (
@@ -113,7 +144,7 @@ const ServerTabs = ({
               </span>
             </span>
           </div>
-          {/* <div
+          <div
             className="cursor-pointer text-sm hover:text-white"
             onClick={() =>
               setPlayerOptions((prev) => {
@@ -122,13 +153,12 @@ const ServerTabs = ({
             }
           >
             <span className="flex items-center gap-2 text-white ">
-              
-             Auto Skip
+              Auto Skip
               <span className="hover:text-white text-[#686868]">
                 {playerOptions.autoSkip ? "On" : "Off"}
               </span>
             </span>
-          </div> */}
+          </div>
         </div>
         <div className="m-10  ">
           <div className="flex flex-col md:flex-row gap-10 items-center">
@@ -155,6 +185,7 @@ const ServerTabs = ({
                       } text-nowrap  rounded-md px-2 py-2`}
                       key={server.id + server.serverName}
                       onClick={() => {
+                        setServerType("sub");
                         setSelectedServer({
                           serverid: server?.serverId,
                           serverType: "sub",
@@ -184,6 +215,7 @@ const ServerTabs = ({
                       } text-nowrap  rounded-md px-2 py-2`}
                       key={server.id + server.serverName}
                       onClick={() => {
+                        setServerType("dub");
                         setSelectedServer({
                           serverid: server.serverId,
                           serverType: "dub",

@@ -5,6 +5,7 @@ import React from "react";
 import { FaClosedCaptioning, FaMicrophone, FaPlay } from "react-icons/fa";
 import AnimeCarousel from "../animecomponents/AnimeCarousel";
 import ShareAnime from "../animecomponents/ShareAnime";
+import Description from "../shared/Description";
 
 const InfoPage = ({
   animeInfo,
@@ -73,10 +74,7 @@ const InfoPage = ({
                 </Link>
 
                 <div className="">
-                  <p className="hidden sm:block">
-                    {animeInfo.info.description.substring(0, 255) + "- "}
-                    <button>More</button>
-                  </p>
+                <Description animeDescription= {animeInfo.info.description} className="hidden sm:block"/>
                 </div>
                 <ShareAnime />
               </div>
@@ -89,10 +87,8 @@ const InfoPage = ({
             <div className="text-sm flex flex-col gap-2 lg:gap-5">
               <div className="sm:hidden">
                 <span>Overview</span>
-                <div className="font-thin">
-                  {animeInfo.info.description.substring(0, 255)}
-                  <button className="font-normal">- More</button>
-                </div>
+                
+                <Description animeDescription= {animeInfo.info.description} className="font-thin"/>
               </div>
               <div className="text-nowrap">
                 <span>Japanese Name: </span>

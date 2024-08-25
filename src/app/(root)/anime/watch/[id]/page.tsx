@@ -1,12 +1,17 @@
 import WatchEpisode from "@/components/animepages/watch/WatchEpisode";
 import Loading from "@/components/Loading";
+import { cookies } from "next/headers";
 
 import { Suspense } from "react";
 
 const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
 
-async function getWatchEpisodeData(params: string) {
+async function getWatchEpisodeData(params: string, searchParams: string) {
   // fetching info and episodes of the anime
+  const cookieStore = cookies();
+  const type = cookieStore.get("serverType")?.value;
+
+
   const [animeInfoData, animeEpisodesData] = await Promise.all([
     await fetch(`${apiUrl}/api/anime/info/${params}`),
     await fetch(
@@ -17,7 +22,9 @@ async function getWatchEpisodeData(params: string) {
   const animeInfo = animeInforesponse.data;
   const animeEpisodes = await animeEpisodesData.json();
 
-  const firstEpisodeId = animeEpisodes?.episodes[0].episodeId;
+  const firstEpisodeId = searchParams
+    ? `${params}?ep=${searchParams}`
+    : animeEpisodes?.episodes[0].episodeId;
 
   // fetching serverList and episode-source of the anime
 
@@ -26,7 +33,9 @@ async function getWatchEpisodeData(params: string) {
       `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/servers?episodeId=${firstEpisodeId}`
     ),
     await fetch(
-      `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/episode-srcs?id=${firstEpisodeId}&category=sub`
+      `${
+        process.env.NEXT_PUBLIC_ANIME_API3
+      }/anime/episode-srcs?id=${firstEpisodeId}${type ? `&category=${type}`:`&category=sub`}`
     ),
   ]);
 
@@ -41,21 +50,22 @@ async function getWatchEpisodeData(params: string) {
   return { animeEpisodes, providedServers, animeInfo, episodeSource };
 }
 
-async function getEpisodeServerListAndSource(episodeid: string,serverType?:string) {
+async function getEpisodeServerListAndSource(
+  episodeid: string,
+  serverType?: string
+) {
   "use server";
-  // getting server list and episode source 
+  // getting server list and episode source
   try {
     const [servers, serverSource] = await Promise.all([
       await fetch(
         `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/servers?episodeId=${episodeid}`
       ),
-      await getEpisodeSrc(episodeid,serverType),
+      await getEpisodeSrc(episodeid, serverType),
     ]);
 
     const serverLists = await servers.json();
     const episodeSourceData = await serverSource;
-
-
 
     return { serverLists, episodeSourceData };
   } catch (error) {
@@ -67,7 +77,7 @@ async function getEpisodeServerListAndSource(episodeid: string,serverType?:strin
 async function getEpisodeSrc(
   episodeId: string,
   serverType?: string,
-  serverId?: string,
+  serverId?: string
 ) {
   "use server";
 
@@ -78,15 +88,14 @@ async function getEpisodeSrc(
     }&category=${serverType ? serverType : "sub"}`
   );
 
-
   const episodeSourceData = await response.json();
 
   return episodeSourceData;
 }
 
-const Page = async ({ params }: any) => {
+const Page = async ({ params, searchParams }: any) => {
   let { episodeSource, animeEpisodes, providedServers, animeInfo } =
-    await getWatchEpisodeData(params.id);
+    await getWatchEpisodeData(params.id, searchParams.ep);
 
   return (
     <Suspense fallback={<Loading />}>

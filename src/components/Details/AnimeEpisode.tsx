@@ -7,9 +7,11 @@ import { BsUiChecksGrid } from "react-icons/bs";
 const AnimeEpisode = ({
   episodes,
   getEpisodeServerList,
+  selectedEpisodeFromServer
 }: {
   episodes: any;
   getEpisodeServerList: any;
+  selectedEpisodeFromServer:number
 }) => {
   const [selectedRange, setSelectedRange] = useState("");
   const [filteredEpisodes, setFilteredEpisodes] = useState([]);
@@ -17,7 +19,14 @@ const AnimeEpisode = ({
   const [selectedView, setSelectedView] = useState<string | null>(null);
 
   // Fetch the selectedView from localStorage on component mount
+  useEffect(()=>{
+    if(selectedEpisodeFromServer){
+      setSelectedEpisode(selectedEpisodeFromServer)
+    }
+  },[selectedEpisodeFromServer])
+
   useEffect(() => {
+   
     const storedView = localStorage.getItem("selectedView");
     if (storedView) {
       setSelectedView(storedView);
@@ -25,6 +34,7 @@ const AnimeEpisode = ({
       setSelectedView("list");
     }
   }, []);
+
 
   const generateRanges = () => {
     const ranges = [];
@@ -53,7 +63,7 @@ const AnimeEpisode = ({
     } else {
       setSelectedRange(episodeRange[0]);
     }
-  }, []);
+  }, [selectedEpisode]);
 
   useEffect(() => {
     if (selectedRange) {
@@ -73,6 +83,9 @@ const AnimeEpisode = ({
     setSelectedView(view);
     localStorage.setItem("selectedView", view);
   };
+
+
+
   return (
     <div className="my-4 flex gap-4 p-4 w-full">
       <div className="w-full">
@@ -82,7 +95,7 @@ const AnimeEpisode = ({
             <div>
               <select
                 className="bg-transparent outline-none"
-                value={selectedEpisode && selectedRange}
+                value={selectedRange}
                 onChange={(e) => setSelectedRange(e.target.value)}
               >
                 {episodeRange &&

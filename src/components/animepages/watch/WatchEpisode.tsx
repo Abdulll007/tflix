@@ -7,12 +7,9 @@ import { Suspense } from "react";
 import AnimeCarousel from "../animecomponents/AnimeCarousel";
 import Link from "next/link";
 
-const ServerTabs = dynamic(
-  () => import("@/components/animepages/watch/ServerTabs"),
-  {
-    ssr: false,
-  }
-);
+import ServerTabs from "@/components/animepages/watch/ServerTabs"
+import Description from "../shared/Description";
+ 
 
 const WatchEpisode = ({
   episodeSource,
@@ -29,18 +26,19 @@ const WatchEpisode = ({
   animeInfo: any;
   getEpisodeServerListAndSource: any;
 }) => {
-  
-  
+
 
   return (
     <div className="">
       <div className="text-white">
-        <section className="flex flex-col xl:flex-row md:p-10  relative">
+        <section className="flex flex-col  md:p-10  relative">
           <Image
             src={animeInfo?.anime?.info?.poster}
             alt={animeInfo?.anime?.info?.name}
-            fill
-            className="absolute top-0 bottom-0 left-0 right-0 bg-cover bg-center -z-10 object-cover bg-blur"
+            
+            className="absolute top-0 bottom-0 left-0 right-0 bg-cover bg-center -z-10 object-cover bg-blur w-full h-full"
+            width={300}
+            height={393}
           />
 
           <div
@@ -51,7 +49,7 @@ const WatchEpisode = ({
             }}
           ></div>
 
-          <Suspense fallback={<Loading />}>
+          
             <ServerTabs
               episodeSource={episodeSource}
               providedServers={providedServers}
@@ -60,18 +58,19 @@ const WatchEpisode = ({
               getEpisodeSrc={getEpisodeSrc}
               
             />
-          </Suspense>
+          
 
             
 
-          <div className={`w-full xl:max-w-sm p-10 xl:py-0 `}>
-            <div className="flex xl:flex-col justify-center gap-5 ">
-              <div className="">
+          <div className={`w-full  p-10  `}>
+            <div className="flex flex-col md:flex-row items-center  gap-5 ">
+              <div className="justify-start">
                 <Image
                   src={animeInfo?.anime?.info?.poster}
                   alt={animeInfo?.anime?.info?.name}
-                  width={90}
-                  height={136}
+                  width={120}
+                  height={80}
+                  className="h-auto max-w-none "
                 />
               </div>
               <div className=" text-white  flex flex-col gap-3 ">
@@ -99,14 +98,55 @@ const WatchEpisode = ({
                   <li>{animeInfo?.anime?.info?.stats?.rating}</li>
                   <li>{animeInfo?.anime?.info?.stats?.duration}</li>
                 </ul>
-                <div className="max-w-lg">
-                  <p className="text-sm">
-                    {animeInfo?.anime?.info?.description?.substring(0, 255)}
-                    {animeInfo?.anime?.info?.description.length > 255 && (
-                      <button>{" + "} More</button>
-                    )}
-                  </p>
+                <div className="">
+                  <Description animeDescription={animeInfo?.anime?.info?.description} className={"text-sm max-w-5xl"}/>
                 </div>
+
+                <div className="text-nowrap">
+                <span>Japanese Name: </span>
+                <span className="font-thin ">
+                  {animeInfo.anime.moreInfo.japanese}{" "}
+                </span>
+              </div>
+              <div className="">
+                <span>Synonyms: </span>
+                <span className="font-thin">
+                  {animeInfo.anime.moreInfo.synonyms}{" "}
+                </span>
+              </div>
+              <div className="">
+                <span>Premiered: </span>
+                <span className="font-thin">
+                  {animeInfo.anime.moreInfo.premiered}{" "}
+                </span>
+              </div>
+              <div className="">
+                <span>Aired: </span>
+                <span className="font-thin">{animeInfo.anime.moreInfo.aired} </span>
+              </div>
+              <div className="">
+                <span>Duration: </span>
+                <span className="font-thin">
+                  {animeInfo.anime.moreInfo.duration}{" "}
+                </span>
+              </div>
+              <div className="">
+                <span>Status: </span>
+                <span className="font-thin">{animeInfo.anime.moreInfo.status} </span>
+              </div>
+                
+              <div className="flex gap-2 items-center flex-wrap">
+                <span>Genres: </span>
+                {animeInfo.anime.moreInfo.genres.map((genre: string) => (
+                  <Link
+                    href={`/anime/genre/${genre?.toLocaleLowerCase()}`}
+                    className="font-thin  border border-gray-600 py-1 px-2 rounded-md text-center hover:font-extralight"
+                    key={genre}
+                  >
+                    {genre}
+                  </Link>
+                ))}
+              </div>
               </div>
             </div>
           </div>
