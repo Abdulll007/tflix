@@ -63,8 +63,8 @@ const WatchEpisode = ({
             
 
           <div className={`w-full  p-10  `}>
-            <div className="flex flex-col md:flex-row items-center  gap-5 ">
-              <div className="justify-start">
+            <div className="flex flex-col md:flex-row items-center md:items-start  gap-5 ">
+              <div className="place-items-start">
                 <Image
                   src={animeInfo?.anime?.info?.poster}
                   alt={animeInfo?.anime?.info?.name}
@@ -99,10 +99,10 @@ const WatchEpisode = ({
                   <li>{animeInfo?.anime?.info?.stats?.duration}</li>
                 </ul>
                 <div className="">
-                  <Description animeDescription={animeInfo?.anime?.info?.description} className={"text-sm max-w-5xl"}/>
+                  <Description animeDescription={animeInfo?.anime?.info?.description} className={"text-sm  max-w-5xl"}/>
                 </div>
 
-                <div className="text-nowrap">
+                <div className="">
                 <span>Japanese Name: </span>
                 <span className="font-thin ">
                   {animeInfo.anime.moreInfo.japanese}{" "}
