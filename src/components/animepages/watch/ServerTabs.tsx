@@ -29,7 +29,7 @@ const ServerTabs = ({
 
   const [playerOptions, setPlayerOptions] = useState({
     light: false,
-    autoSkip: false,
+    autoSkip: true,
   });
 
   const [availableServer, setAvailableServer] = useState<any>();
@@ -45,13 +45,13 @@ const ServerTabs = ({
         return { ...prev, serverType: serverType };
       });
 
-      document.cookie = `serverType=${serverType} ;secure httponly;`;
+      document.cookie = `serverType=${serverType} ;secure; httponly;`;
     } else {
       localStorage.setItem("serverType", "sub");
       setSelectedServer((prev) => {
         return { ...prev, serverType: "sub" };
       });
-      document.cookie = `serverType=${"sub"} ;secure httponly;`;
+      document.cookie = `serverType=${"sub"} ;secure; httponly;`;
     }
   }, [selectedServer?.serverType]);
 
@@ -96,7 +96,7 @@ const ServerTabs = ({
 
   const setServerType = (type: string) => {
     localStorage.setItem("serverType", type);
-    console.log(type)
+    
     document.cookie = `serverType=${type}; secure; httponly;`;
   };
 

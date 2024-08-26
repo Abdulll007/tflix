@@ -126,15 +126,15 @@ const VideoPlayer = ({
         }}
       >
         <MediaProvider>
+        </MediaProvider>
           <button
             ref={skipButtonRef}
-            className="skip absolute bottom-24 right-5 border px-3 py-2 rounded-md"
+            className="skip absolute bottom-24 right-5 border px-3 py-2 rounded-md "
             style={{ display: "none" }}
             onClick={handleSkip}
           >
             Skip
           </button>
-        </MediaProvider>
 
         {allCaptions.map((tracks, index) => (
           <Track
