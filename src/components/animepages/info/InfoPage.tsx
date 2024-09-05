@@ -90,7 +90,7 @@ const InfoPage = ({
                 
                 <Description animeDescription= {animeInfo.info.description} className="font-thin"/>
               </div>
-              <div className="text-nowrap">
+              <div className="">
                 <span>Japanese Name: </span>
                 <span className="font-thin ">
                   {animeInfo.moreInfo.japanese}{" "}

@@ -1,6 +1,8 @@
 import WatchEpisode from "@/components/animepages/watch/WatchEpisode";
+import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 import { Suspense } from "react";
 
@@ -96,6 +98,31 @@ async function getEpisodeSrc(
 const Page = async ({ params, searchParams }: any) => {
   let { episodeSource, animeEpisodes, providedServers, animeInfo } =
     await getWatchEpisodeData(params.id, searchParams.ep);
+
+
+    if (! episodeSource|| !animeEpisodes|| !providedServers|| !animeInfo) {
+      return (
+        <Error>
+          <div className="">
+            <h2 className="text-center text-2xl">Oops! something went wrong</h2>
+            <p className="text-center">
+              Sorry, but it seems that something went wrong. Try refreshing the
+              page or try again later.
+            </p>
+            <div className="flex justify-center mt-6">
+              <Link
+                href={"/anime"}
+                className="text-center px-4 py-2 bg-[#565656]"
+               
+              >
+                Go Home
+              </Link>
+            </div>
+          </div>
+        </Error>
+      );
+    }
+
 
   return (
     <Suspense fallback={<Loading />}>
