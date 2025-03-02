@@ -3,23 +3,10 @@ import Cards from "../Cards";
 
 import useFetchData from "@/helper/FetchHook";
 
-<<<<<<< HEAD
-function TopRated() {
-  const [data, loading] = useFetchData(
-    "https://api.themoviedb.org/3/movie/top_rated"
-  );
-
-  return (
-    <div className="trending mt-6 mx-5 text-white">
-=======
 function TopRated({data}: { data: any }) {
-  // const [data, loading] = useFetchData(
-  //   "https://api.themoviedb.org/3/movie/top_rated"
-  // );
 
   return (
     <div className="trending m-6 mx-5 text-white">
->>>>>>> 483482a (fixed api error for while fetching data from api)
       <h1 className="text-xl font-semibold my-4">Top Rated</h1>
 
       <div className=" overflow-y-scroll no-scrollbar flex gap-6">

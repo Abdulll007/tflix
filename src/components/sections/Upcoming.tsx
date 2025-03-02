@@ -1,26 +1,12 @@
 import React from "react";
 import Cards from "../Cards";
-import useFetchData from "@/helper/FetchHook";
 
 
 
-<<<<<<< HEAD
-function Upcoming() {
-  const [data, loading] = useFetchData(
-    "https://api.themoviedb.org/3/movie/upcoming"
-  );
-
-  return (
-    <div className="trending mt-6 mx-5 text-white">
-=======
 function Upcoming({data}:{data:any}) {
-  // const [data, loading] = useFetchData(
-  //   "https://api.themoviedb.org/3/movie/upcoming"
-  // );
 
   return (
     <div className="trending m-6 mx-5 text-white">
->>>>>>> 483482a (fixed api error for while fetching data from api)
       <h1 className="text-xl font-semibold my-4">Upcoming</h1>
 
       <div className="overflow-y-scroll no-scrollbar flex gap-6">
