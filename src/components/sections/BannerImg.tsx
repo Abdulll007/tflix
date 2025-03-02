@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 483482a (fixed api error for while fetching data from api)
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -5,7 +9,11 @@ import { IoPlaySharp } from "react-icons/io5";
 import { tvGenres, movieGenres } from "../genres";
 import Image from "next/legacy/image";
 
+<<<<<<< HEAD
 function BannerImg({ data, loading }: { data: any; loading: boolean }) {
+=======
+function BannerImg({ data}: { data: any; }) {
+>>>>>>> 483482a (fixed api error for while fetching data from api)
   const [bannerData, setBannerData] = useState<any>();
 
   useEffect(() => {

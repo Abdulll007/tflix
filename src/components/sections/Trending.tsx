@@ -6,7 +6,11 @@ import Cards from "../Cards";
 
 function Trending({ data}: { data: any;}) {
   return (
+<<<<<<< HEAD
     <div className="trending  mt-6 mx-5 text-white">
+=======
+    <div className="trending  m-6 mx-5 text-white">
+>>>>>>> 483482a (fixed api error for while fetching data from api)
       <h1 className="text-xl font-semibold ">Trending</h1>
 
       <div className="overflow-y-scroll no-scrollbar flex gap-6">
