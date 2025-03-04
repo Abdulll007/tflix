@@ -19,14 +19,16 @@ const getHomeData = async () => {
 
   const response = await fetch(homeurl).then((res) => res.json());
 
-  const homedata = response?.data;
-  const spotlightAnime = homedata.data.spotlightAnimes;
-  const trendingAnime = homedata.data.trendingAnimes;
-  const topTen = homedata.data.top10Animes;
-  const latestEpisodes = homedata.data.latestEpisodeAnimes;
+  const homedata = response?.data?.data;
+
+  console.log(homedata);
+  const spotlightAnime = homedata.spotlightAnimes;
+  const trendingAnime = homedata.trendingAnimes;
+  const topTen = homedata.top10Animes;
+  const latestEpisodes = homedata.latestEpisodeAnimes;
   const mostPopular = homedata.mostPopularAnimes;
-  const topAiring = homedata.data.topAiringAnimes;
-  const topUpcommig = homedata.data.topUpcomingAnimes;
+  const topAiring = homedata.topAiringAnimes;
+  const topUpcommig = homedata.topUpcomingAnimes;
 
   return {
     spotlightAnime,
@@ -40,7 +42,6 @@ const getHomeData = async () => {
 };
 
 const Homepage = async () => {
-  
   const {
     spotlightAnime,
     trendingAnime,
@@ -67,6 +68,12 @@ const Homepage = async () => {
             <AnimeCarousel
               carouselTitle="Added Episodes"
               animeInfo={latestEpisodes}
+              path="/anime/watch"
+            />
+
+            <AnimeCarousel
+              carouselTitle="Most Popular"
+              animeInfo={mostPopular}
               path="/anime/watch"
             />
 
