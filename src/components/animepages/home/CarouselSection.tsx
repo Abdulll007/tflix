@@ -11,7 +11,7 @@ function cleanString(input: string) {
   return input?.replace(/<\/?[^>]+(>|$)|\(\s*Source:.*?\)/g, "");
 }
 
-interface SpotlightAnimeProp{
+interface SpotlightAnimeProp {
   rank: number;
   id: string;
   name: string;
@@ -25,8 +25,13 @@ interface SpotlightAnimeProp{
   otherInfo: string[];
 }
 
-const CarouselSection = ({ spotlightAnime }: { spotlightAnime: SpotlightAnimeProp[]}) => {
+const CarouselSection = ({
+  spotlightAnime,
+}: {
+  spotlightAnime: SpotlightAnimeProp[];
+}) => {
   const slideIndex = useRef(0);
+  const [isCarouselStart, setIsCarouselStart] = React.useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function showSlides(n: number) {
@@ -67,6 +72,7 @@ const CarouselSection = ({ spotlightAnime }: { spotlightAnime: SpotlightAnimePro
 
   useEffect(() => {
     startSlideShow();
+    setIsCarouselStart(false);
     return () => stopSlideShow();
   }, []);
 
@@ -75,7 +81,9 @@ const CarouselSection = ({ spotlightAnime }: { spotlightAnime: SpotlightAnimePro
   showSlides(slideIndex.current);
   // Ensure only the first slide is shown
 
-  return (
+  return isCarouselStart ? (
+    <div className="skleton h-[50vh] w-full bg-gray-950"></div>
+  ) : (
     <div>
       {spotlightAnime?.map((data: any, index: number) => (
         <div
@@ -128,7 +136,10 @@ const CarouselSection = ({ spotlightAnime }: { spotlightAnime: SpotlightAnimePro
               </p>
             </div>
             <div className="flex items-center gap-4 md:gap-8 mt-4">
-              <Link href={`/anime/watch/${data.id}`} className="bg-gray-700 rounded-md flex items-center px-3 py-1 gap-2 text-nowrap">
+              <Link
+                href={`/anime/watch/${data.id}`}
+                className="bg-gray-700 rounded-md flex items-center px-3 py-1 gap-2 text-nowrap"
+              >
                 <IoPlayCircleSharp size={20} />
                 Watch Now
               </Link>

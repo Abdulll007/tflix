@@ -17,10 +17,9 @@ const getHomeData = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
   const homeurl = `${apiUrl}/api/anime/home`;
 
+  const response = await fetch(homeurl).then((res) => res.json());
 
-  const response = await fetch(homeurl).then(res=>res.json());
-
-  const homedata =response.data
+  const homedata = response?.data;
   const spotlightAnime = homedata.data.spotlightAnimes;
   const trendingAnime = homedata.data.trendingAnimes;
   const topTen = homedata.data.top10Animes;
@@ -28,9 +27,6 @@ const getHomeData = async () => {
   const mostPopular = homedata.mostPopularAnimes;
   const topAiring = homedata.data.topAiringAnimes;
   const topUpcommig = homedata.data.topUpcomingAnimes;
-
-
-
 
   return {
     spotlightAnime,
@@ -44,6 +40,7 @@ const getHomeData = async () => {
 };
 
 const Homepage = async () => {
+  
   const {
     spotlightAnime,
     trendingAnime,
@@ -53,8 +50,6 @@ const Homepage = async () => {
     topAiring,
     topUpcommig,
   } = await getHomeData();
-
-
 
   return (
     <>
@@ -96,7 +91,6 @@ const Homepage = async () => {
         </div>
       </section>
     </>
-   
   );
 };
 
