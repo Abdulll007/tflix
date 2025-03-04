@@ -17,21 +17,18 @@ const CarouselSection = dynamic(
 const getHomeData = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
   const homeurl = `${apiUrl}/api/anime/home`;
-  console.log({homeurl});
 
-  const {data} = await axios.get(homeurl);
+  const { data } = await axios.get(homeurl);
 
-  const homedata = data?.data?.data
+  const homedata = data?.data?.data;
 
-
-
-  const spotlightAnime = homedata.spotlightAnimes;
-  const trendingAnime = homedata.trendingAnimes;
-  const topTen = homedata.top10Animes;
-  const latestEpisodes = homedata.latestEpisodeAnimes;
-  const mostPopular = homedata.mostPopularAnimes;
-  const topAiring = homedata.topAiringAnimes;
-  const topUpcommig = homedata.topUpcomingAnimes;
+  const spotlightAnime = homedata.spotlightAnimes || [];
+  const trendingAnime = homedata.trendingAnimes || [];
+  const topTen = homedata.top10Animes || [];
+  const latestEpisodes = homedata.latestEpisodeAnimes || [];
+  const mostPopular = homedata.mostPopularAnimes || [];
+  const topAiring = homedata.topAiringAnimes || [];
+  const topUpcommig = homedata.topUpcomingAnimes || [];
 
   return {
     spotlightAnime,
