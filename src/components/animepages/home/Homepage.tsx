@@ -22,7 +22,7 @@ const getHomeData = async () => {
 
   const homedata = data?.data?.data
 
-  console.log(data?.data?.data);
+  console.log("homepage");
 
 
   const spotlightAnime = homedata.spotlightAnimes;

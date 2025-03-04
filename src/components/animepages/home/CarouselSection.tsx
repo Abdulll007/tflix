@@ -81,6 +81,8 @@ const CarouselSection = ({
   showSlides(slideIndex.current);
   // Ensure only the first slide is shown
 
+  console.log("carousel page");
+
   return (
     <div>
       {spotlightAnime?.map((data: any, index: number) => (
