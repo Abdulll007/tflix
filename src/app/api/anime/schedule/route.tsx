@@ -21,7 +21,6 @@ async function fetchData(date:string) {
         const res = await fetch(`${process.env.NEXT_PUBLIC_ANIME_API3}/hianime/schedule?date=${date}`)
 
         const data = await res.json()
-       
         
         return data.data
         

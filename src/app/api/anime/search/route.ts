@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_ANIME_API3}/hianime/search?q=${search}${page?`&page=${page}`:""}`
     );
-
    
    
     return NextResponse.json({ data, success: true }, { status: 200 });
