@@ -13,11 +13,10 @@ async function getWatchEpisodeData(params: string, searchParams: string) {
   const cookieStore = cookies();
   const type = cookieStore.get("serverType")?.value;
 
-
   const [animeInfoData, animeEpisodesData] = await Promise.all([
     await fetch(`${apiUrl}/api/anime/info/${params}`),
     await fetch(
-      `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/episodes/${params}`
+      `${process.env.NEXT_PUBLIC_ANIME_API3}/hianime/anime/${params}/episodes`
     ),
   ]);
   const animeInforesponse = await animeInfoData.json();
@@ -26,18 +25,23 @@ async function getWatchEpisodeData(params: string, searchParams: string) {
 
   const firstEpisodeId = searchParams
     ? `${params}?ep=${searchParams}`
-    : animeEpisodes?.episodes[0].episodeId;
+    : animeEpisodes?.data.episodes[0].episodeId;
 
   // fetching serverList and episode-source of the anime
 
+ 
+
   const [serverListData, episodeSourceData] = await Promise.all([
     await fetch(
-      `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/servers?episodeId=${firstEpisodeId}`
+      `${process.env.NEXT_PUBLIC_ANIME_API3}/hianime/episode/servers?animeEpisodeId=${firstEpisodeId}`
     ),
+
     await fetch(
       `${
         process.env.NEXT_PUBLIC_ANIME_API3
-      }/anime/episode-srcs?id=${firstEpisodeId}${type ? `&category=${type}`:`&category=sub`}`
+      }/hianime/episode/sources?animeEpisodeId=${firstEpisodeId}${
+        type ? `&category=${type}` : `&category=sub`
+      }`
     ),
   ]);
 
@@ -58,18 +62,18 @@ async function getEpisodeServerListAndSource(
 ) {
   "use server";
   // getting server list and episode source
+
   try {
-    const [servers, serverSource] = await Promise.all([
+    const [servers, episodeSourceData] = await Promise.all([
       await fetch(
-        `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/servers?episodeId=${episodeid}`
+        `${process.env.NEXT_PUBLIC_ANIME_API3}/hianime/episode/servers?animeEpisodeId=${episodeid}`
       ),
       await getEpisodeSrc(episodeid, serverType),
     ]);
 
     const serverLists = await servers.json();
-    const episodeSourceData = await serverSource;
 
-    return { serverLists, episodeSourceData };
+    return [serverLists.data, episodeSourceData];
   } catch (error) {
     console.log(error);
     throw error;
@@ -85,53 +89,52 @@ async function getEpisodeSrc(
 
   //get episode source
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/episode-srcs?id=${episodeId}${
-      serverId ? `&serverId=${serverId}` : ""
+    `${
+      process.env.NEXT_PUBLIC_ANIME_API3
+    }/hianime/episode/sources?animeEpisodeId=${episodeId}${
+      serverId ? `&server=${serverId}` : ""
     }&category=${serverType ? serverType : "sub"}`
   );
 
   const episodeSourceData = await response.json();
 
-  return episodeSourceData;
+  return episodeSourceData.data;
 }
 
 const Page = async ({ params, searchParams }: any) => {
   let { episodeSource, animeEpisodes, providedServers, animeInfo } =
     await getWatchEpisodeData(params.id, searchParams.ep);
 
-
-    if (! episodeSource|| !animeEpisodes|| !providedServers|| !animeInfo) {
-      return (
-        <Error>
-          <div className="">
-            <h2 className="text-center text-2xl">Oops! something went wrong</h2>
-            <p className="text-center">
-              Sorry, but it seems that something went wrong. Try refreshing the
-              page or try again later.
-            </p>
-            <div className="flex justify-center mt-6">
-              <Link
-                href={"/anime"}
-                className="text-center px-4 py-2 bg-[#565656]"
-               
-              >
-                Go Home
-              </Link>
-            </div>
+  if (!episodeSource || !animeEpisodes || !providedServers || !animeInfo) {
+    return (
+      <Error>
+        <div className="">
+          <h2 className="text-center text-2xl">Oops! something went wrong</h2>
+          <p className="text-center">
+            Sorry, but it seems that something went wrong. Try refreshing the
+            page or try again later.
+          </p>
+          <div className="flex justify-center mt-6">
+            <Link
+              href={"/anime"}
+              className="text-center px-4 py-2 bg-[#565656]"
+            >
+              Go Home
+            </Link>
           </div>
-        </Error>
-      );
-    }
-
+        </div>
+      </Error>
+    );
+  }
 
   return (
     <Suspense fallback={<Loading />}>
       <WatchEpisode
-        episodeSource={episodeSource}
-        animeEpisodes={animeEpisodes}
-        providedServers={providedServers}
+        episodeSource={episodeSource.data}
+        animeEpisodes={animeEpisodes.data}
+        providedServers={providedServers.data}
         getEpisodeSrc={getEpisodeSrc}
-        animeInfo={animeInfo}
+        animeInfo={animeInfo?.data}
         getEpisodeServerListAndSource={getEpisodeServerListAndSource}
       />
     </Suspense>

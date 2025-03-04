@@ -21,11 +21,12 @@ const Search = () => {
   const fetchingData = async () => {
     try {
       if (pathname.includes("anime")) {
-        const response = await axios.get(
+        const {data} = await axios.get(
           `/api/anime/search/?search=${searchResult}`
         );
 
-        setData(response.data.data.animes);
+        
+        setData(data.data.data.animes);
       } else {
         const { data } = await axios.get(
           `${process.env.NEXT_PUBLIC_SEARCH}${searchResult}&include_adult=false&language=en-US`,
@@ -54,7 +55,7 @@ const Search = () => {
 
   const handleChange = (event: any) => {
     setSearchResult(event?.target.value);
-    if (data.length > 0) {
+    if (data?.length > 0) {
       setShowSearchResult(true);
     }
   };

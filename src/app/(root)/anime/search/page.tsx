@@ -11,7 +11,9 @@ const searchResultFunction = async (search: string, page: string) => {
     }`
   );
 
-  return data.data;
+
+
+  return data.data.data
 };
 
 const page = async ({

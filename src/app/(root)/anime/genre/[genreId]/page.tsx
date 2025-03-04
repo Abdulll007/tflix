@@ -10,11 +10,12 @@ const getAnimeOfThatGenre = async (
   pageNumber: string
 ) => {
   const respons = await fetch(
-    `${process.env.NEXT_PUBLIC_ANIME_API3}/anime/genre/${genreId}${
+    `${process.env.NEXT_PUBLIC_ANIME_API3}/hianime/genre/${genreId}${
       pageNumber ? `?page=${pageNumber}` : ""
     }`
-  );
-  const genreInfoData = await respons.json();
+  ).then((res) => res.json());
+  const genreInfoData = respons.data
+  console.log(genreInfoData);
 
   const animeData = genreInfoData?.animes;
   const topAiringAnimeData = genreInfoData?.topAiringAnimes;

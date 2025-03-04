@@ -51,6 +51,8 @@ const AnimeSearchResult = ({
       window.location.href = `/anime/search?search=${searchResult}`;
     }
   };
+
+
   return (
     <div className="text-white p-5 flex flex-col min-h-lvh">
       <div className="mb-4">
@@ -66,7 +68,7 @@ const AnimeSearchResult = ({
               type="text"
             />
 
-            {searchResult.length > 0 ? (
+            {searchResult?.length > 0 ? (
               <div className="p-3" onClick={handleClick}>
                 {" "}
                 {/* Trigger search on click */}
@@ -82,7 +84,7 @@ const AnimeSearchResult = ({
       </div>
 
       <div className="flex-1 flex flex-col ">
-        {results.length > 0 ? (
+        {results?.length > 0 ? (
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 ">
             {results?.map((anime: AnimeSearchParamsProp) => (
               <AnimeCards

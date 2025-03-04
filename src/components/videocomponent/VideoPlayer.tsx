@@ -111,7 +111,6 @@ const VideoPlayer = ({
   return (
     <>
       <MediaPlayer
-      
         className="player"
         title=""
         src={source}
@@ -125,18 +124,17 @@ const VideoPlayer = ({
           }
         }}
       >
-        <MediaProvider>
-        </MediaProvider>
-          <button
-            ref={skipButtonRef}
-            className="skip absolute bottom-24 right-5 border px-3 py-2 rounded-md "
-            style={{ display: "none" }}
-            onClick={handleSkip}
-          >
-            Skip
-          </button>
+        <MediaProvider></MediaProvider>
+        <button
+          ref={skipButtonRef}
+          className="skip absolute bottom-24 right-5 border px-3 py-2 rounded-md "
+          style={{ display: "none" }}
+          onClick={handleSkip}
+        >
+          Skip
+        </button>
 
-        {allCaptions.map((tracks, index) => (
+        {allCaptions?.map((tracks, index) => (
           <Track
             key={index}
             src={tracks.file}

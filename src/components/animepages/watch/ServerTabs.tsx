@@ -22,8 +22,8 @@ const ServerTabs = ({
   const [selectedServer, setSelectedServer] = useState({
     serverType: providedServers?.sub ? "sub" : "dub",
     serverid: providedServers?.sub
-      ? providedServers?.sub[0]?.serverId
-      : providedServers?.dub[0]?.serverId,
+      ? providedServers?.sub[0]?.serverName
+      : providedServers?.dub[0]?.serverName,
   });
   const [serverData, setServerData] = useState<any>();
 
@@ -38,6 +38,7 @@ const ServerTabs = ({
     setServerData(episodeSource);
     setAvailableServer(providedServers);
   }, []);
+
   useEffect(() => {
     const serverType = localStorage.getItem("serverType");
     if (serverType) {
@@ -45,30 +46,32 @@ const ServerTabs = ({
         return { ...prev, serverType: serverType };
       });
 
-      document.cookie = `serverType=${serverType} ;secure; httponly;`;
+      document.cookie = `serverType=${serverType}; max-age=2592000; path=/`;
     } else {
       localStorage.setItem("serverType", "sub");
       setSelectedServer((prev) => {
         return { ...prev, serverType: "sub" };
       });
-      document.cookie = `serverType=${"sub"} ;secure; httponly;`;
+      document.cookie = `serverType=${"sub"}; max-age=2592000; path=/`;
     }
-  }, [selectedServer?.serverType]);
+  }, []);
 
   const fetchServerInfo = async (
     episodeId: string,
-    serverId?: string,
+    serverName?: string,
     serverType?: string
   ) => {
+  
     if (!serverType) {
       const info = await getEpisodeSrc(
         episodeId,
         selectedServer.serverType,
-        serverId
+        serverName
       );
       setServerData(info);
     } else {
-      const info = await getEpisodeSrc(episodeId, serverType, serverId);
+      const info = await getEpisodeSrc(episodeId, serverType, serverName);
+
 
       setServerData(info);
     }
@@ -76,13 +79,14 @@ const ServerTabs = ({
 
   const fetchEpisodeAndSource = useCallback(
     async (episodeId: string) => {
+    
       window.history.pushState(
         { page: `/anime/${episodeId}` },
         "",
         `/anime/watch/${episodeId}`
       );
 
-      const { serverLists, episodeSourceData } =
+      const  [serverLists, episodeSourceData ] =
         await getEpisodeServerListAndSource(
           episodeId,
           selectedServer.serverType
@@ -96,9 +100,12 @@ const ServerTabs = ({
 
   const setServerType = (type: string) => {
     localStorage.setItem("serverType", type);
-    
-    document.cookie = `serverType=${type}; secure; httponly;`;
+
+    document.cookie = `serverType=${type}; max-age=2592000; path=/`;
   };
+
+
+  
 
   return (
     <div className="flex flex-1 flex-col-reverse lg:grid grid-cols-12 bg-black ">
@@ -172,13 +179,13 @@ const ServerTabs = ({
               </p>
             </div>
             <div className="flex-1 flex flex-col gap-5  ">
-              {availableServer?.sub.length > 0 && (
+              {availableServer?.sub?.length > 0 && (
                 <div className=" flex gap-3 flex-wrap items-center ">
                   SUB:
                   {availableServer?.sub?.map((server: any) => (
                     <button
                       className={`${
-                        selectedServer.serverid === server.serverId &&
+                        selectedServer.serverid === server.serverName &&
                         selectedServer.serverType === "sub"
                           ? "bg-[#7d8591]"
                           : "bg-[#212121]"
@@ -187,12 +194,12 @@ const ServerTabs = ({
                       onClick={() => {
                         setServerType("sub");
                         setSelectedServer({
-                          serverid: server?.serverId,
+                          serverid: server?.serverName,
                           serverType: "sub",
                         });
                         fetchServerInfo(
                           availableServer?.episodeId,
-                          server?.serverId,
+                          server?.serverName,
                           "sub"
                         );
                       }}
@@ -202,13 +209,13 @@ const ServerTabs = ({
                   ))}
                 </div>
               )}
-              {availableServer?.dub.length > 0 && (
+              {availableServer?.dub?.length > 0 && (
                 <div className="flex gap-3 flex-wrap items-center">
                   DUB:
                   {availableServer?.dub?.map((server: any) => (
                     <button
                       className={`${
-                        selectedServer.serverid === server.serverId &&
+                        selectedServer.serverid === server.serverName &&
                         selectedServer.serverType === "dub"
                           ? "bg-[#7d8591]"
                           : "bg-[#212121]"
@@ -217,12 +224,12 @@ const ServerTabs = ({
                       onClick={() => {
                         setServerType("dub");
                         setSelectedServer({
-                          serverid: server.serverId,
+                          serverid: server.serverName,
                           serverType: "dub",
                         });
                         fetchServerInfo(
                           availableServer.episodeId,
-                          server.serverId,
+                          server?.serverName,
                           "dub"
                         );
                       }}
@@ -232,13 +239,13 @@ const ServerTabs = ({
                   ))}
                 </div>
               )}
-              {availableServer?.raw.length > 0 && (
+              {availableServer?.raw?.length > 0 && (
                 <div className=" flex gap-3 flex-wrap items-center ">
                   RAW:
                   {availableServer?.raw?.map((server: any) => (
                     <button
                       className={`${
-                        selectedServer.serverid === server.serverId &&
+                        selectedServer.serverid === server?.serverName &&
                         selectedServer.serverType === "raw"
                           ? "bg-[#7d8591]"
                           : "bg-[#212121]"
@@ -246,12 +253,12 @@ const ServerTabs = ({
                       key={server.id + server.serverName}
                       onClick={() => {
                         setSelectedServer({
-                          serverid: server?.serverId,
+                          serverid: server?.serverName,
                           serverType: "raw",
                         });
                         fetchServerInfo(
                           availableServer?.episodeId,
-                          server?.serverId,
+                          server?.serverName,
                           "raw"
                         );
                       }}
@@ -276,6 +283,8 @@ const ServerTabs = ({
         }
       ></div>
     </div>
+
+    
   );
 };
 

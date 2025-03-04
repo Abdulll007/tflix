@@ -105,39 +105,39 @@ const WatchEpisode = ({
                 <div className="">
                 <span>Japanese Name: </span>
                 <span className="font-thin ">
-                  {animeInfo.anime.moreInfo.japanese}{" "}
+                  {animeInfo?.anime?.moreInfo.japanese}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Synonyms: </span>
                 <span className="font-thin">
-                  {animeInfo.anime.moreInfo.synonyms}{" "}
+                  {animeInfo?.anime?.moreInfo?.synonyms}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Premiered: </span>
                 <span className="font-thin">
-                  {animeInfo.anime.moreInfo.premiered}{" "}
+                  {animeInfo?.anime.moreInfo.premiered}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Aired: </span>
-                <span className="font-thin">{animeInfo.anime.moreInfo.aired} </span>
+                <span className="font-thin">{animeInfo?.anime.moreInfo.aired} </span>
               </div>
               <div className="">
                 <span>Duration: </span>
                 <span className="font-thin">
-                  {animeInfo.anime.moreInfo.duration}{" "}
+                  {animeInfo?.anime.moreInfo.duration}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Status: </span>
-                <span className="font-thin">{animeInfo.anime.moreInfo.status} </span>
+                <span className="font-thin">{animeInfo?.anime.moreInfo.status} </span>
               </div>
                 
               <div className="flex gap-2 items-center flex-wrap">
                 <span>Genres: </span>
-                {animeInfo.anime.moreInfo.genres.map((genre: string) => (
+                {animeInfo?.anime.moreInfo.genres.map((genre: string) => (
                   <Link
                     href={`/anime/genre/${genre?.toLocaleLowerCase()}`}
                     className="font-thin  border border-gray-600 py-1 px-2 rounded-md text-center hover:font-extralight"

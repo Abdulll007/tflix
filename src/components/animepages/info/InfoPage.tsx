@@ -17,8 +17,8 @@ const InfoPage = ({
     <div className="">
       <div className=" text-white  relative  ">
         <Image
-          src={animeInfo.info.poster}
-          alt={animeInfo.info.name}
+          src={animeInfo?.info?.poster}
+          alt={animeInfo?.info?.name}
           fill
           className="absolute top-0 bottom-0 left-0 right-0 bg-cover bg-center -z-10 object-cover bg-blur"
         />
@@ -36,8 +36,8 @@ const InfoPage = ({
             <div className=" m-auto sm:m-0 ">
               <div className="relative w-[140px] md:w-[180px]  block pb-[150%] overflow-hidden rounded-md">
                 <Image
-                  src={animeInfo.info.poster}
-                  alt={animeInfo.info.name}
+                  src={animeInfo?.info.poster}
+                  alt={animeInfo?.info.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="w-full h-full top-0 left-0  object-cover rounded-md"
@@ -47,34 +47,34 @@ const InfoPage = ({
             <div className=" sm:mx-10 mt-10 sm:mt-0">
               <div className="flex items-center sm:items-start flex-col gap-6">
                 <h1 className="text-3xl font-semibold">
-                  {animeInfo.info.name}
+                  {animeInfo?.info.name}
                 </h1>
                 <ul className="text-white text-sm flex gap-3 items-center flex-wrap">
                   <li className="flex text-white border px-1 rounded-sm items-center ">
                     <FaClosedCaptioning className="mr-2" />{" "}
-                    {animeInfo.info.stats.episodes.sub}
+                    {animeInfo?.info.stats.episodes.sub}
                   </li>
-                  {animeInfo.info.stats.episodes.dub && (
+                  {animeInfo?.info.stats.episodes.dub && (
                     <li className="flex text-white border px-1 rounded-sm items-center ">
                       <FaMicrophone className="mr-2" />
-                      {animeInfo.info.stats.episodes.dub}
+                      {animeInfo?.info.stats.episodes.dub}
                     </li>
                   )}
-                  <li>{animeInfo.info.stats.quality}</li>
-                  <li>{animeInfo.info.stats.type}</li>
-                  <li>{animeInfo.info.stats.rating}</li>
-                  <li>{animeInfo.info.stats.duration}</li>
+                  <li>{animeInfo?.info.stats.quality}</li>
+                  <li>{animeInfo?.info.stats.type}</li>
+                  <li>{animeInfo?.info.stats.rating}</li>
+                  <li>{animeInfo?.info.stats.duration}</li>
                 </ul>
 
                 <Link
-                  href={`/anime/watch/${animeInfo.info.id}`}
+                  href={`/anime/watch/${animeInfo?.info?.id}`}
                   className="bg-[#515151] hover:bg-[#323232] px-6 py-3 rounded-md flex items-center gap-2"
                 >
                   <FaPlay size={10} /> Watch Now
                 </Link>
 
                 <div className="">
-                <Description animeDescription= {animeInfo.info.description} className="hidden sm:block"/>
+                <Description animeDescription= {animeInfo?.info.description} className="hidden sm:block"/>
                 </div>
                 <ShareAnime />
               </div>
@@ -88,44 +88,44 @@ const InfoPage = ({
               <div className="sm:hidden">
                 <span>Overview</span>
                 
-                <Description animeDescription= {animeInfo.info.description} className="font-thin"/>
+                <Description animeDescription= {animeInfo?.info.description} className="font-thin"/>
               </div>
               <div className="">
                 <span>Japanese Name: </span>
                 <span className="font-thin ">
-                  {animeInfo.moreInfo.japanese}{" "}
+                  {animeInfo?.moreInfo.japanese}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Synonyms: </span>
                 <span className="font-thin">
-                  {animeInfo.moreInfo.synonyms}{" "}
+                  {animeInfo?.moreInfo.synonyms}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Premiered: </span>
                 <span className="font-thin">
-                  {animeInfo.moreInfo.premiered}{" "}
+                  {animeInfo?.moreInfo.premiered}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Aired: </span>
-                <span className="font-thin">{animeInfo.moreInfo.aired} </span>
+                <span className="font-thin">{animeInfo?.moreInfo.aired} </span>
               </div>
               <div className="">
                 <span>Duration: </span>
                 <span className="font-thin">
-                  {animeInfo.moreInfo.duration}{" "}
+                  {animeInfo?.moreInfo.duration}{" "}
                 </span>
               </div>
               <div className="">
                 <span>Status: </span>
-                <span className="font-thin">{animeInfo.moreInfo.status} </span>
+                <span className="font-thin">{animeInfo?.moreInfo.status} </span>
               </div>
 
               <div className="flex gap-2 items-center flex-wrap">
                 <span>Genres: </span>
-                {animeInfo.moreInfo.genres.map((genre: string) => (
+                {animeInfo?.moreInfo.genres.map((genre: string) => (
                   <Link
                     href={`/anime/genre/${genre?.toLocaleLowerCase()}`}
                     className="font-thin  border border-gray-600 py-1 px-2 rounded-md text-center hover:font-extralight"
@@ -138,12 +138,12 @@ const InfoPage = ({
 
               <div className="">
                 <span>Studio: </span>
-                <span className="font-thin">{animeInfo.moreInfo.studios} </span>
+                <span className="font-thin">{animeInfo?.moreInfo.studios} </span>
               </div>
               <div className="">
                 <span>Producers: </span>
                 <span className="font-thin">
-                  {animeInfo.moreInfo.producers}{" "}
+                  {animeInfo?.moreInfo.producers}{" "}
                 </span>
               </div>
             </div>

@@ -26,8 +26,6 @@ const page = async ()  => {
     
   ]);
 
-console.log({trending,upcoming,mostpopular,toprated})
-
 
   return (
   <HomeWrapper trending={trending?.results} upcoming={upcoming?.results} mostpopular={mostpopular?.results} toprated={toprated?.results}/>
