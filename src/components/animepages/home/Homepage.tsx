@@ -21,7 +21,6 @@ const getHomeData = async () => {
 
   const homedata = response?.data?.data;
 
-  console.log(homedata);
   const spotlightAnime = homedata.spotlightAnimes;
   const trendingAnime = homedata.trendingAnimes;
   const topTen = homedata.top10Animes;
@@ -54,8 +53,11 @@ const Homepage = async () => {
 
   return (
     <>
-      <CarouselSection spotlightAnime={spotlightAnime} />
-
+      {!spotlightAnime ? (
+        <div className="skleton h-[50vh] w-full bg-gray-950"></div>
+      ) : (
+        <CarouselSection spotlightAnime={spotlightAnime} />
+      )}
       <section className="mx-4 md:mx-10 ">
         <div className="xl:flex  gap-8 ">
           <div className="xl:w-[70%]">

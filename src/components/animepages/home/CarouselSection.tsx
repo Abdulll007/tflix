@@ -31,7 +31,7 @@ const CarouselSection = ({
   spotlightAnime: SpotlightAnimeProp[];
 }) => {
   const slideIndex = useRef(0);
-  const [isCarouselStart, setIsCarouselStart] = React.useState(true);
+  
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function showSlides(n: number) {
@@ -72,7 +72,7 @@ const CarouselSection = ({
 
   useEffect(() => {
     startSlideShow();
-    setIsCarouselStart(false);
+   
     return () => stopSlideShow();
   }, []);
 
@@ -81,9 +81,7 @@ const CarouselSection = ({
   showSlides(slideIndex.current);
   // Ensure only the first slide is shown
 
-  return isCarouselStart ? (
-    <div className="skleton h-[50vh] w-full bg-gray-950"></div>
-  ) : (
+  return (
     <div>
       {spotlightAnime?.map((data: any, index: number) => (
         <div

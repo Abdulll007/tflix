@@ -15,7 +15,7 @@ const getAnimeOfThatGenre = async (
     }`
   ).then((res) => res.json());
   const genreInfoData = respons.data
-  console.log(genreInfoData);
+
 
   const animeData = genreInfoData?.animes;
   const topAiringAnimeData = genreInfoData?.topAiringAnimes;
