@@ -7,6 +7,7 @@ const Schedule = dynamic(
 
 import AnimeGenres from "@/components/animepages/animecomponents/AnimeGenres";
 import AnimeCarousel from "../animecomponents/AnimeCarousel";
+import axios from "axios";
 
 const CarouselSection = dynamic(
   () => import("@/components/animepages/home/CarouselSection"),
@@ -17,9 +18,12 @@ const getHomeData = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
   const homeurl = `${apiUrl}/api/anime/home`;
 
-  const response = await fetch(homeurl).then((res) => res.json());
+  const {data} = await axios.get(homeurl);
 
-  const homedata = response?.data?.data;
+  const homedata = data?.data?.data
+
+  console.log(data?.data?.data);
+
 
   const spotlightAnime = homedata.spotlightAnimes;
   const trendingAnime = homedata.trendingAnimes;
