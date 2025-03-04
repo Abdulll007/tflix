@@ -17,12 +17,12 @@ const CarouselSection = dynamic(
 const getHomeData = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
   const homeurl = `${apiUrl}/api/anime/home`;
+  console.log({homeurl});
 
   const {data} = await axios.get(homeurl);
 
   const homedata = data?.data?.data
 
-  console.log("homepage");
 
 
   const spotlightAnime = homedata.spotlightAnimes;
