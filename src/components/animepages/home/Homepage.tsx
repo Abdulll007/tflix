@@ -21,9 +21,8 @@ const getHomeData = async () => {
   const { data } = await axios.get(homeurl);
 
 
-  console.log(data.data)
 
-  const homedata = data.data
+  const homedata = data
 
   const spotlightAnime = homedata.data.spotlightAnimes || [];
   const trendingAnime = homedata.data.trendingAnimes || [];
