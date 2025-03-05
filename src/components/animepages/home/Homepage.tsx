@@ -20,6 +20,9 @@ const getHomeData = async () => {
 
   const { data } = await axios.get(homeurl);
 
+
+  console.log(data)
+
   const homedata = data?.data?.data;
 
   const spotlightAnime = homedata.spotlightAnimes || [];
