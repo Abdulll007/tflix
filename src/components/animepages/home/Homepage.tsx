@@ -54,7 +54,7 @@ const Homepage = async () => {
 
   return (
     <>
-      {!spotlightAnime ? (
+      {spotlightAnime===undefined ? (
         <div className="skleton h-[50vh] w-full bg-gray-950"></div>
       ) : (
         <CarouselSection spotlightAnime={spotlightAnime} />
