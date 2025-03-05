@@ -120,7 +120,7 @@ const VideoPlayer = ({
         onTextTrackChange={(event) => {
           const selectedTrack = event;
           if (selectedTrack?.kind === "captions") {
-            savePreferredCaption(selectedTrack.language);
+            savePreferredCaption(selectedTrack?.language);
           }
         }}
       >
@@ -137,18 +137,18 @@ const VideoPlayer = ({
         {allCaptions?.map((tracks, index) => (
           <Track
             key={index}
-            src={tracks.file}
-            kind={tracks.kind}
-            language={tracks.label}
-            lang={tracks.srclang}
-            label={tracks.label}
-            default={preferredCaption === tracks.label}
+            src={tracks?.file}
+            kind={tracks?.kind}
+            language={tracks?.label}
+            lang={tracks?.srclang}
+            label={tracks?.label}
+            default={preferredCaption === tracks?.label}
           />
         ))}
 
         <DefaultVideoLayout
           icons={defaultLayoutIcons}
-          thumbnails={`https://vtt.blasphemy8473.workers.dev/${thumbnail[0].file}`}
+          thumbnails={`https://vtt.blasphemy8473.workers.dev/${thumbnail[0]?.file}`}
         />
       </MediaPlayer>
     </>
