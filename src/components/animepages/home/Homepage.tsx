@@ -21,17 +21,17 @@ const getHomeData = async () => {
   const { data } = await axios.get(homeurl);
 
 
-  console.log(data)
+  console.log(data.data)
 
-  const homedata = data?.data?.data;
+  const homedata = data.data
 
-  const spotlightAnime = homedata.spotlightAnimes || [];
-  const trendingAnime = homedata.trendingAnimes || [];
-  const topTen = homedata.top10Animes || [];
+  const spotlightAnime = homedata.data.spotlightAnimes || [];
+  const trendingAnime = homedata.data.trendingAnimes || [];
+  const topTen = homedata.data.top10Animes || [];
   const latestEpisodes = homedata.latestEpisodeAnimes || [];
-  const mostPopular = homedata.mostPopularAnimes || [];
-  const topAiring = homedata.topAiringAnimes || [];
-  const topUpcommig = homedata.topUpcomingAnimes || [];
+  const mostPopular = homedata.data.mostPopularAnimes || [];
+  const topAiring = homedata.data.topAiringAnimes || [];
+  const topUpcommig = homedata.data.topUpcomingAnimes || [];
 
   return {
     spotlightAnime,
