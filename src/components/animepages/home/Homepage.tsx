@@ -21,8 +21,8 @@ const getHomeData = async () => {
   const { data } = await axios.get(homeurl);
 
 
-
-  const homedata = data
+  //remove one data from homedata in production and add it in development
+  const homedata = data.data
 
   const spotlightAnime = homedata.data.spotlightAnimes || [];
   const trendingAnime = homedata.data.trendingAnimes || [];
