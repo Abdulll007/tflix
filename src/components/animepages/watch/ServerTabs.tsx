@@ -61,7 +61,6 @@ const ServerTabs = ({
     serverName?: string,
     serverType?: string
   ) => {
-  
     if (!serverType) {
       const info = await getEpisodeSrc(
         episodeId,
@@ -72,21 +71,19 @@ const ServerTabs = ({
     } else {
       const info = await getEpisodeSrc(episodeId, serverType, serverName);
 
-
       setServerData(info);
     }
   };
 
   const fetchEpisodeAndSource = useCallback(
     async (episodeId: string) => {
-    
       window.history.pushState(
         { page: `/anime/${episodeId}` },
         "",
         `/anime/watch/${episodeId}`
       );
 
-      const  [serverLists, episodeSourceData ] =
+      const [serverLists, episodeSourceData] =
         await getEpisodeServerListAndSource(
           episodeId,
           selectedServer.serverType
@@ -104,12 +101,9 @@ const ServerTabs = ({
     document.cookie = `serverType=${type}; max-age=2592000; path=/`;
   };
 
-
-  
-
   return (
     <div className="flex flex-1 flex-col-reverse lg:grid grid-cols-12 bg-black ">
-      <div className="col-start-1 col-end-4 z-">
+      <div className="col-start-1 col-end-4 ">
         <AnimeEpisode
           episodes={animeEpisodes.episodes}
           getEpisodeServerList={fetchEpisodeAndSource}
@@ -117,7 +111,7 @@ const ServerTabs = ({
         />
       </div>
       <div className=" col-start-4 lg:col-end-13 my-auto">
-        <div
+        {/* <div
           className={`relative mt-5 sm:mt-0 col-start-4 lg:col-end-13   overflow-hidden rounded-md  ${
             playerOptions.light ? "z-[12] lg:-translate-x-[17%]" : ""
           }`}
@@ -131,6 +125,19 @@ const ServerTabs = ({
               outroStart={serverData.outro.start}
               outroEnd={serverData.outro.end}
               autoSkip={playerOptions.autoSkip}
+            />
+          )}
+        </div> */}
+
+        <div className="relative pb-[56.25%] w-full artplayer-app">
+          {serverData?.sources && (
+            <VideoPlayer
+              source={serverData?.sources[0].url}
+              captionSrc={serverData?.tracks}
+              introStart={serverData.intro.start}
+              introEnd={serverData.intro.end}
+              outroStart={serverData.outro.start}
+              outroEnd={serverData.outro.end}
             />
           )}
         </div>
@@ -283,8 +290,6 @@ const ServerTabs = ({
         }
       ></div>
     </div>
-
-    
   );
 };
 
