@@ -29,7 +29,7 @@ const ServerTabs = ({
 
   const [playerOptions, setPlayerOptions] = useState({
     light: false,
-    autoSkip: true,
+    autoSkip: false
   });
 
   const [availableServer, setAvailableServer] = useState<any>();
@@ -41,6 +41,12 @@ const ServerTabs = ({
 
   useEffect(() => {
     const serverType = localStorage.getItem("serverType");
+    setPlayerOptions((prev) => {
+      return {
+        ...prev,
+        autoSkip: localStorage?.getItem("autoSkip") === "true",
+      };
+    });
     if (serverType) {
       setSelectedServer((prev) => {
         return { ...prev, serverType: serverType };
@@ -129,7 +135,11 @@ const ServerTabs = ({
           )}
         </div> */}
 
-        <div className="relative pb-[56.25%] w-full artplayer-app">
+        <div
+          className={`relative pb-[56.25%] w-full artplayer-app z-0 ${
+            playerOptions.light ? "z-[12] lg:-translate-x-[17%]" : ""
+          }`}
+        >
           {serverData?.sources && (
             <VideoPlayer
               source={serverData?.sources[0].url}
@@ -138,6 +148,7 @@ const ServerTabs = ({
               introEnd={serverData.intro.end}
               outroStart={serverData.outro.start}
               outroEnd={serverData.outro.end}
+              autoSkip={playerOptions.autoSkip}
             />
           )}
         </div>
@@ -154,7 +165,7 @@ const ServerTabs = ({
               <FaLightbulb />
               Light{" "}
               <span className="hover:text-white text-[#686868]">
-                {playerOptions.light ? "Off" : "On"}
+                {playerOptions.light ? "On" : "Off"}
               </span>
             </span>
           </div>
@@ -162,6 +173,11 @@ const ServerTabs = ({
             className="cursor-pointer text-sm hover:text-white"
             onClick={() =>
               setPlayerOptions((prev) => {
+                localStorage.setItem(
+                  "autoSkip",
+                  (!playerOptions.autoSkip).toString()
+                );
+
                 return { ...prev, autoSkip: !playerOptions.autoSkip };
               })
             }
