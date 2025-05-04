@@ -108,7 +108,7 @@ const Page = async ({ params, searchParams }: any) => {
   if (!episodeSource || !animeEpisodes || !providedServers || !animeInfo) {
     return (
       <Error>
-        <div className="">
+        <div className="text-white">
           <h2 className="text-center text-2xl">Oops! something went wrong</h2>
           <p className="text-center">
             Sorry, but it seems that something went wrong. Try refreshing the
